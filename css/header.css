@@ -1,0 +1,301 @@
+.top-banner {
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.mobile-number{
+  display: none;
+}
+
+.top-banner a {
+  color: #ffd700;
+}
+
+.top_bg{
+  background: var(--blue);
+}
+.top-banner{
+  max-width: 1033px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+:root{
+--primary-color: #fff;
+--hover-color: #e3e3e3;
+--green: #B8C1C4;
+--accent-color: #0071FF;
+--text-color: #111;
+}
+header {
+background-color: white;
+font-family: 'Montserrat', sans-serif;
+height: 60px;
+font-size: 14px;
+align-items: center;
+justify-content: space-between;
+}
+
+.header__wrapper {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding-top: 7px;
+}
+
+.logo {
+  height: 3rem;
+
+}
+
+nav{
+  background-color: var(--primary-color);
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  gap: 1.5rem; /* Расстояние между пунктами */
+}
+nav .home-li{
+  margin-right: auto;
+}
+nav li{
+  display: flex;
+}
+
+
+nav a{
+  display: flex;
+  text-decoration: none;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-color);
+  border-radius: 15px;
+  padding: 0.5em 2em;
+  transition: all 250ms ease;
+}
+nav a.active {
+  background-color: var(--hover-color);
+  color: var(--text-color);
+}
+.nav-links a:hover{
+  background-color: var(--hover-color);
+  transform: scale(1.1);
+  color: var(--text-color);
+  }
+
+.nav-links a.accent-link{
+  background-color: var(--accent-color);
+}
+#open-sidebar-button{
+  display: none;
+  background: none;
+  border: none;
+  padding: 1em;
+  margin-left: auto;
+  cursor: pointer;
+}
+.header__nav-button {
+  height: 45px;
+  font-size: 16px;
+  padding: 12px 15px !important;
+  background: var(--blue);
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.phone_icon {
+  width: 20px;
+  align-items: center;
+}
+
+.tiktok-logo{
+  filter: invert(100%);
+}
+
+.soc_icon{
+  height: 40px;
+}
+#close-sidebar-button{
+  display: none;
+  background: none;
+  border: none;
+  padding: 1em;
+  cursor: pointer;
+}
+
+
+#overlay{
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  inset: 0;
+  z-index: 9;
+  display: none;
+}
+
+.whatsapp-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--blue);
+  color: white;
+  font-family: var(--font);
+  font-size: 18px;
+  font-weight: bold;
+  padding: 12px 20px;
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  bottom: 30px;
+  right: 20px;
+  z-index: 1000;
+  transition: all 0.5s;
+}
+
+.whatsapp-button img {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+.whatsapp-button:hover {
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+.whatsapp-button {
+    font-size: 16px;
+    padding: 10px 15px;
+}
+}
+
+.skip-link:focus {
+  opacity: 1; 
+  pointer-events: auto; 
+  outline: 3px solid #ffffff; 
+}
+@media (max-width:1200px) {
+header {
+    z-index: 3;
+}     
+      
+
+}
+
+@media (max-width:900px){
+.header__nav-button{
+  font-size: 16px;
+  margin-left: 15px;
+}
+nav a{
+  font-size: 16px;
+  transition: 150ms ease;
+}
+.admin-img {
+  padding: 0px;
+  margin-left: -10px ;
+}
+
+
+nav ul {
+  gap: 0.7rem;
+}
+}
+
+@media screen and (max-width: 767px) {
+#open-sidebar-button, #close-sidebar-button{
+  display: block;
+}
+
+.top-banner-text-1{
+  display: none;
+}
+
+
+header{
+  position: sticky;
+  top: 0;
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  z-index: 1000;
+}
+header .container .header__wrapper{
+  z-index: 3;
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+}    
+:target {
+padding-top: 80px;
+}
+
+nav{
+  position: fixed;
+  top: 0;
+  right: -100%;
+  height: 100vh;
+  width: min(10em, 100%);
+  z-index: 10;
+  border-left: 1px solid var(--hover-color);
+  transition: right 300ms ease-in-out;
+}
+nav.show{
+  right: 0;
+}
+nav.show ~ #overlay{
+  display: block;
+}
+nav ul{
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  margin-left: 5px;
+}
+
+#open-sidebar-button{
+  padding: 0;
+}
+
+.admin-img {
+  padding: 10px;
+  margin-left: 0px ;
+}
+
+}
+
+@media screen and (max-width: 468px){
+  .top-banner {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+  .top-banner-text-2 a{
+    display: none;
+  }
+
+  .mobile-number{
+    display: flex;
+  }
+}
+

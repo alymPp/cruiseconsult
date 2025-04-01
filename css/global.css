@@ -1,0 +1,74 @@
+:root{
+  --color: #263E6A;
+  --light: #4096B9;
+  --blue: #164E65;
+  --light-bg: #D5E2FF;
+}
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
+.container {
+  max-width: 1147px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  box-sizing: border-box;
+}
+
+:root {
+  --font:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;;
+  --green: #4baf47;
+  --green-bd:  linear-gradient(90deg, #d6f9ff 0%, #578b94 57%);;
+}
+
+.section {
+  margin-top: 60px;
+}
+
+.top-banner{
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: var(--blue);
+}
+
+.section-title {
+  padding: 15px 0;
+  font-size: 45px;
+  font-weight: 500;
+  text-align: start;
+  background-color: transparent;
+
+}
+
+p,h1, h3, label,  h2 ,h4{
+  font-family: var(--font);
+  font-weight: 400;
+}
+
+h2{
+  color: var(--color);
+}
+img {
+  max-width: 100%;
+  height: auto; 
+  display: block;
+}
+@media screen and (max-width: 769px){
+  h1, h2{
+      font-size: 28px !important;
+  }
+}
+
+@media screen and (max-width: 379px){
+  h1, h2{
+      font-size: 20px !important;
+  }
+}
+
+.admin-img {
+  padding: 0px;
+  margin-left: -20px;
+}
+
+.admin-img img{
+  width: 30px !important;
+  height: 30px !important;
+}
