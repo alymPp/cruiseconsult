@@ -82,7 +82,7 @@ align-items: center;
 .container {
 max-width: 1147px;
 margin: 0 auto;
-padding: 0 2rem;
+padding: 0 0.5rem;
 box-sizing: border-box;
 }
 
