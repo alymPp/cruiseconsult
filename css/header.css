@@ -52,7 +52,6 @@ padding-top: 7px;
 
 .logo {
   height: 3rem;
-
 }
 
 nav{
@@ -229,7 +228,9 @@ nav ul {
   display: none;
 }
 
-
+.logo {
+  height: 2rem;
+}
 header{
   position: sticky;
   top: 0;
