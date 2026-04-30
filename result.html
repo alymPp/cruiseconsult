@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Отчет за месяц — Cruise Consult</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(180deg, #eef8ff 0%, #ffffff 38%, #eef8ff 100%);
+      color: #0f172a;
+      line-height: 1.5;
+    }
+
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 46px 22px 80px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 46px;
+      border-radius: 42px;
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 30px 80px rgba(14, 165, 233, 0.16);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -160px;
+      right: -130px;
+      width: 380px;
+      height: 380px;
+      background: rgba(14, 165, 233, 0.18);
+      border-radius: 50%;
+      filter: blur(18px);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: #e0f2fe;
+      color: #0369a1;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 28px;
+    }
+
+    .hero-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1.4fr 0.7fr;
+      gap: 28px;
+      align-items: end;
+    }
+
+    h1 {
+      font-size: clamp(44px, 7vw, 82px);
+      line-height: 0.95;
+      letter-spacing: -0.06em;
+      font-weight: 900;
+      margin-bottom: 22px;
+    }
+
+    .subtitle {
+      max-width: 660px;
+      font-size: 20px;
+      color: #475569;
+    }
+
+    .main-result {
+      padding: 30px;
+      border-radius: 34px;
+      background: #0f172a;
+      color: #ffffff;
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.22);
+    }
+
+    .main-result span {
+      color: #7dd3fc;
+      font-weight: 700;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .main-result strong {
+      display: block;
+      font-size: 54px;
+      line-height: 1;
+      margin: 18px 0 10px;
+      letter-spacing: -0.04em;
+    }
+
+    section {
+      margin-top: 72px;
+    }
+
+    .section-label {
+      color: #0284c7;
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      font-size: clamp(30px, 4vw, 52px);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      font-weight: 900;
+      margin-bottom: 16px;
+    }
+
+    .section-desc {
+      max-width: 760px;
+      color: #64748b;
+      font-size: 17px;
+      margin-bottom: 28px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      padding: 26px;
+      border-radius: 32px;
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      box-shadow: 0 22px 55px rgba(14, 165, 233, 0.12);
+      backdrop-filter: blur(20px);
+    }
+
+    .icon {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 18px;
+      background: #e0f2fe;
+      color: #0284c7;
+      font-size: 22px;
+      margin-bottom: 22px;
+    }
+
+    .stat-value {
+      font-size: 34px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+    }
+
+    .stat-label {
+      margin-top: 8px;
+      color: #64748b;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .videos-card {
+      padding: 30px;
+      border-radius: 36px;
+      background: rgba(255, 255, 255, 0.84);
+      box-shadow: 0 22px 55px rgba(14, 165, 233, 0.12);
+    }
+
+    .video-row {
+      display: grid;
+      grid-template-columns: 230px 1fr 90px;
+      gap: 18px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .video-name {
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .bar-bg {
+      height: 16px;
+      border-radius: 999px;
+      background: #e2e8f0;
+      overflow: hidden;
+    }
+
+    .bar {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #38bdf8, #0284c7);
+    }
+
+    .video-views {
+      text-align: right;
+      font-weight: 900;
+      color: #0369a1;
+    }
+
+    .audience-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .mini-list .item {
+      margin-bottom: 20px;
+    }
+
+    .item-top {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 800;
+      margin-bottom: 9px;
+    }
+
+    .country-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .country-box {
+      background: #f0f9ff;
+      border-radius: 24px;
+      padding: 22px;
+    }
+
+    .country-box strong {
+      display: block;
+      font-size: 34px;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: #0284c7;
+      margin-bottom: 8px;
+    }
+
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 22px;
+    }
+
+    .big-number {
+      font-size: 50px;
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      color: #0284c7;
+      margin-bottom: 8px;
+    }
+
+    .lead-boxes {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .lead-box {
+      background: #f0f9ff;
+      border-radius: 28px;
+      padding: 26px;
+    }
+
+    .final {
+      padding: 44px;
+      border-radius: 42px;
+      background: #0f172a;
+      color: #ffffff;
+      box-shadow: 0 30px 80px rgba(15, 23, 42, 0.22);
+    }
+
+    .final h2 {
+      color: #ffffff;
+      max-width: 860px;
+    }
+
+    .final .section-label {
+      color: #7dd3fc;
+    }
+
+    .recommendations {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .rec {
+      padding: 20px;
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #e2e8f0;
+      font-size: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .audience-grid,
+      .profile-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats,
+      .recommendations {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .video-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .video-views {
+        text-align: left;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .page {
+        padding: 22px 14px 50px;
+      }
+
+      .hero,
+      .final {
+        padding: 28px;
+        border-radius: 32px;
+      }
+
+      .stats,
+      .recommendations,
+      .lead-boxes,
+      .country-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div class="badge">🚢 Cruise Consult • Instagram Performance</div>
+      <div class="hero-grid">
+        <div>
+          <h1>Отчет за месяц</h1>
+          <p class="subtitle">31 марта — 29 апреля. Результаты по Reels, аудитории, активности профиля и качеству кандидатов.</p>
+        </div>
+        <div class="main-result">
+          <span>Главный результат</span>
+          <strong>+1 200</strong>
+          <p>новых подписчиков за месяц</p>
+        </div>
+      </div>
+    </header>
+
+    <section class="stats">
+      <div class="card">
+        <div class="icon">🎬</div>
+        <div class="stat-value">7</div>
+        <div class="stat-label">Опубликовано Reels</div>
+      </div>
+      <div class="card">
+        <div class="icon">👀</div>
+        <div class="stat-value">347 300</div>
+        <div class="stat-label">Просмотры</div>
+      </div>
+      <div class="card">
+        <div class="icon">❤️</div>
+        <div class="stat-value">18 300</div>
+        <div class="stat-label">Взаимодействия</div>
+      </div>
+      <div class="card">
+        <div class="icon">👥</div>
+        <div class="stat-value">+1 200</div>
+        <div class="stat-label">Новые подписчики</div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-label">Top Content</div>
+      <h2>Лучшие видео месяца</h2>
+      <p class="section-desc">Самый сильный ролик набрал 102 000 просмотров. Это показывает, что тема работы на лайнере имеет высокий вирусный потенциал.</p>
+
+      <div class="videos-card">
+        <div class="video-row">
+          <div class="video-name">Самая чиловая работа на лайнере</div>
+          <div class="bar-bg"><div class="bar" style="width: 100%"></div></div>
+          <div class="video-views">102K</div>
+        </div>
+        <div class="video-row">
+          <div class="video-name">Gulzada Orunal</div>
+          <div class="bar-bg"><div class="bar" style="width: 25%"></div></div>
+          <div class="video-views">25K</div>
+        </div>
+        <div class="video-row">
+          <div class="video-name">Ализе исполнила мечту</div>
+          <div class="bar-bg"><div class="bar" style="width: 15%"></div></div>
+          <div class="video-views">15K</div>
+        </div>
+        <div class="video-row">
+          <div class="video-name">Перизат устроилась на работу</div>
+          <div class="bar-bg"><div class="bar" style="width: 11%"></div></div>
+          <div class="video-views">11K</div>
+        </div>
+        <div class="video-row">
+          <div class="video-name">Блог Ализе через Cruise Consult</div>
+          <div class="bar-bg"><div class="bar" style="width: 7%"></div></div>
+          <div class="video-views">7K</div>
+        </div>
+        <div class="video-row">
+          <div class="video-name">Блог Жанары по Жашыл Дем</div>
+          <div class="bar-bg"><div class="bar" style="width: 6%"></div></div>
+          <div class="video-views">6K</div>
+        </div>
+        <div class="video-row">
+          <div class="video-name">Корпоративный влог по Жашыл Дем</div>
+          <div class="bar-bg"><div class="bar" style="width: 5%"></div></div>
+          <div class="video-views">5K</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-label">Audience</div>
+      <h2>Аудитория</h2>
+      <p class="section-desc">Основная аудитория — молодые люди 18–34 лет. Это самый подходящий сегмент для ниши работы на круизных лайнерах.</p>
+
+      <div class="audience-grid">
+        <div class="card mini-list">
+          <h3>Топ города</h3><br />
+          <div class="item">
+            <div class="item-top"><span>Бишкек</span><span>33.1%</span></div>
+            <div class="bar-bg"><div class="bar" style="width: 66%"></div></div>
+          </div>
+          <div class="item">
+            <div class="item-top"><span>Ош</span><span>3.9%</span></div>
+            <div class="bar-bg"><div class="bar" style="width: 8%"></div></div>
+          </div>
+          <div class="item">
+            <div class="item-top"><span>Москва</span><span>3.4%</span></div>
+            <div class="bar-bg"><div class="bar" style="width: 7%"></div></div>
+          </div>
+          <div class="item">
+            <div class="item-top"><span>Якутск</span><span>2%</span></div>
+            <div class="bar-bg"><div class="bar" style="width: 4%"></div></div>
+          </div>
+        </div>
+
+        <div class="card mini-list">
+          <h3>Возраст</h3><br />
+          <div class="item">
+            <div class="item-top"><span>18–24</span><span>36.3%</span></div>
+            <div class="bar-bg"><div class="bar" style="width: 72%"></div></div>
+          </div>
+          <div class="item">
+            <div class="item-top"><span>25–34</span><span>31.5%</span></div>
+            <div class="bar-bg"><div class="bar" style="width: 63%"></div></div>
+          </div>
+          <div class="item">
+            <div class="item-top"><span>35–44</span><span>14.7%</span></div>
+            <div class="bar-bg"><div class="bar" style="width: 30%"></div></div>
+          </div>
+          <div class="item">
+            <div class="item-top"><span>45–54</span><span>9.1%</span></div>
+            <div class="bar-bg"><div class="bar" style="width: 18%"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-label">Geography</div>
+      <h2>Страны</h2>
+      <div class="country-grid">
+        <div class="country-box"><strong>49%</strong>Кыргызстан</div>
+        <div class="country-box"><strong>30%</strong>Россия</div>
+        <div class="country-box"><strong>6.3%</strong>Казахстан</div>
+        <div class="country-box"><strong>1.5%</strong>Германия</div>
+      </div>
+    </section>
+
+    <section class="profile-grid">
+      <div class="card">
+        <div class="section-label">Profile Activity</div>
+        <h2>Активность профиля</h2>
+        <div class="big-number">8 375</div>
+        <p>переходов в профиль</p>
+        <br />
+        <div class="big-number">37</div>
+        <p>кликов по ссылке</p>
+      </div>
+
+      <div class="card">
+        <div class="section-label">Leads</div>
+        <h2>Качество консультаций</h2>
+        <p class="section-desc">На консультации приходит около 65% кандидатов. Из них примерно 70% знают один–два языка или имеют опыт работы за границей.</p>
+        <div class="lead-boxes">
+          <div class="lead-box">
+            <div class="big-number">65%</div>
+            <p>приходят на консультацию</p>
+          </div>
+          <div class="lead-box">
+            <div class="big-number">70%</div>
+            <p>знают 1–2 языка или имеют зарубежный опыт</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="final">
+      <div class="section-label">Итог и рекомендации</div>
+      <h2>Контент работает. Следующая цель — усилить конверсию.</h2>
+      <div class="recommendations">
+        <div class="rec">Продолжать формат роликов про реальные истории кандидатов.</div>
+        <div class="rec">Масштабировать тему работы на лайнере — она дала 102K просмотров.</div>
+        <div class="rec">Добавить сильные CTA: «пиши», «переходи», «запишись на консультацию».</div>
+        <div class="rec">Усилить ссылку в bio и сделать путь до консультации проще.</div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
