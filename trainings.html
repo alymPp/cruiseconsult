@@ -31,6 +31,103 @@ nav{position:sticky;top:0;z-index:100;background:var(--navy)}
 .hero-step{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:9px 15px;font-size:13px;color:rgba(245,240,232,.8)}
 .hero-step span{color:var(--teal-light);font-weight:500;margin-right:6px}
 /* SECTIONS */
+
+  /* PDF BLANKS */
+.blanks-section{
+  background:var(--page);
+}
+
+.blanks-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+.blank-card{
+  background:var(--white);
+  border:1px solid rgba(0,0,0,.07);
+  border-radius:18px;
+  padding:28px;
+  box-shadow:0 8px 30px rgba(0,0,0,.05);
+}
+
+.blank-icon{
+  width:48px;
+  height:48px;
+  border-radius:14px;
+  background:rgba(26,158,143,.1);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:24px;
+  margin-bottom:16px;
+}
+
+.blank-card h3{
+  font-family:'DM Serif Display',serif;
+  font-size:22px;
+  margin-bottom:8px;
+}
+
+.blank-card p{
+  font-size:14px;
+  color:var(--muted);
+  line-height:1.7;
+  margin-bottom:18px;
+}
+
+.blank-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+  background:linear-gradient(135deg,#1A9E8F,#0D8070);
+  color:white;
+  border-radius:10px;
+  padding:12px 18px;
+  font-size:14px;
+  font-weight:500;
+  transition:.2s;
+}
+
+.blank-btn:hover{
+  transform:translateY(-2px);
+  opacity:.9;
+}
+
+.blank-note{
+  margin-top:20px;
+  background:rgba(26,158,143,.07);
+  border-left:3px solid var(--teal);
+  border-radius:14px;
+  padding:18px 20px;
+}
+
+.blank-note strong{
+  display:block;
+  margin-bottom:6px;
+  font-size:14px;
+}
+
+.blank-note p{
+  font-size:14px;
+  color:var(--muted);
+  line-height:1.7;
+}
+
+@media(max-width:700px){
+  .blanks-grid{
+    grid-template-columns:1fr;
+  }
+
+  .blank-card{
+    padding:22px;
+  }
+
+  .blank-btn{
+    width:100%;
+  }
+}
 section{padding:72px 0}
 .section-tag{font-size:11px;font-weight:500;letter-spacing:.1em;color:var(--teal);text-transform:uppercase;margin-bottom:8px}
 .section-title{font-family:'DM Serif Display',serif;font-size:clamp(26px,3vw,40px);line-height:1.15;margin-bottom:14px}
@@ -154,7 +251,7 @@ footer{background:var(--navy2);padding:28px 0}
   <div class="container">
     <div class="hero-tag">Гостиничный департамент · Круизный лайнер</div>
     <h1>Подготовься к интервью <em>правильно</em></h1>
-    <p class="hero-sub">Методичка для кандидатов на позиции официанта, горничной и бармена. Слушай примеры, изучай структуру, приходи готовым.</p>
+    <p class="hero-sub">Методичка для кандидатов на позиции официанта, горничной и повара. Слушай примеры, изучай структуру, приходи готовым.</p>
     <div class="hero-steps">
       <div class="hero-step"><span>01</span>Послушай разборы</div>
       <div class="hero-step"><span>02</span>Привыкни к акценту</div>
@@ -164,6 +261,51 @@ footer{background:var(--navy2);padding:28px 0}
     </div>
   </div>
 </div>
+
+  <!-- PDF BLANKS -->
+<section class="blanks-section" id="blanks">
+  <div class="container">
+    <div class="section-tag">Бланки подготовки</div>
+    <h2 class="section-title">Заполни бланку до пробного интервью</h2>
+    <p class="section-lead">
+      Эти бланки помогут тебе заранее подготовить ответы на самые важные вопросы Мариуса.
+      Когда ты заполняешь бланку, ты уже понимаешь свой опыт, меню, языки, мотивацию и не теряешься на интервью.
+    </p>
+
+    <div class="blanks-grid">
+      <div class="blank-card">
+        <div class="blank-icon">🇬🇧</div>
+        <h3>English Form</h3>
+        <p>
+          Заполни английскую версию, чтобы подготовить ответы по опыту работы, меню, F&B, safety и мотивации на лайнер.
+        </p>
+        <a href="./files/Marius_Blank_Form_EN_Styled.pdf" download class="blank-btn">
+          Скачать English PDF
+        </a>
+      </div>
+
+      <div class="blank-card">
+        <div class="blank-icon">🇩🇪</div>
+        <h3>Deutsch Formular</h3>
+        <p>
+          Заполни немецкую версию, чтобы привыкнуть к формулировкам и подготовиться к началу интервью на немецком.
+        </p>
+        <a href="./files/Marius_Blank_Form_DE_Styled.pdf" download class="blank-btn">
+          Скачать Deutsch PDF
+        </a>
+      </div>
+    </div>
+
+    <div class="blank-note">
+      <strong>Зачем это нужно?</strong>
+      <p>
+        Мариус часто спрашивает не сложные вещи, а базовые: где ты работал, что это за место,
+        какие гости приходили, какие блюда ты знаешь, почему хочешь на лайнер и готов ли ты к условиям работы.
+        Эта бланка помогает заранее “обезопасить” себя от ступора и отвечать коротко, спокойно и структурно.
+      </p>
+    </div>
+  </div>
+</section>
 
 
 <!-- АУДИО -->
