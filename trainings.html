@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cruize Consult — Подготовка к интервью на лайнер</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0D1B2A;--navy2:#152638;--teal:#1A9E8F;--teal-light:#22C5B3;--cream:#F5F0E8;--cream2:#EDE7DA;--text:#1a1a1a;--muted:#6b6b6b;--white:#fff;--green:#1A9E6A;--red:#C94040;--page:#EEF3F9}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--page);color:var(--text);line-height:1.6}
+.container{max-width:1200px;margin:0 auto;padding:0 5vw}
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:var(--navy)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 5vw;display:flex;align-items:center;justify-content:space-between;height:56px}
+.nav-logo{font-family:'DM Serif Display',serif;color:var(--cream);font-size:18px}
+.nav-links{display:flex;gap:24px}
+.nav-links a{color:rgba(245,240,232,.6);font-size:13px;text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--cream)}
+/* HERO */
+.hero{background:var(--navy);padding:80px 0 100px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;right:-80px;top:-80px;width:480px;height:480px;border-radius:50%;border:1px solid rgba(26,158,143,.12);pointer-events:none}
+.hero::after{content:'';position:absolute;right:40px;top:40px;width:280px;height:280px;border-radius:50%;border:1px solid rgba(26,158,143,.07);pointer-events:none}
+.hero-tag{display:inline-block;background:rgba(26,158,143,.15);color:var(--teal-light);font-size:12px;letter-spacing:.08em;padding:4px 12px;border-radius:2px;margin-bottom:20px;font-weight:500}
+.hero h1{font-family:'DM Serif Display',serif;color:var(--cream);font-size:clamp(34px,4.5vw,58px);line-height:1.1;max-width:680px;margin-bottom:20px}
+.hero h1 em{font-style:italic;color:var(--teal-light)}
+.hero-sub{color:rgba(245,240,232,.6);font-size:16px;max-width:500px;margin-bottom:40px;font-weight:300}
+.hero-steps{display:flex;gap:10px;flex-wrap:wrap}
+.hero-step{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:9px 15px;font-size:13px;color:rgba(245,240,232,.8)}
+.hero-step span{color:var(--teal-light);font-weight:500;margin-right:6px}
+/* SECTIONS */
+section{padding:72px 0}
+.section-tag{font-size:11px;font-weight:500;letter-spacing:.1em;color:var(--teal);text-transform:uppercase;margin-bottom:8px}
+.section-title{font-family:'DM Serif Display',serif;font-size:clamp(26px,3vw,40px);line-height:1.15;margin-bottom:14px}
+.section-lead{font-size:15px;color:var(--muted);max-width:560px;margin-bottom:44px;font-weight:300;line-height:1.7}
+/* AUDIO */
+.audio-section{background:var(--navy2)}
+.audio-section .section-tag{color:var(--teal-light)}
+.audio-section .section-title{color:var(--cream)}
+.audio-section .section-lead{color:rgba(245,240,232,.5)}
+.audio-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:700px){.audio-grid{grid-template-columns:1fr}}
+.audio-card{border-radius:14px;padding:26px;border:1px solid}
+.audio-card.success{background:rgba(26,158,106,.08);border-color:rgba(26,158,106,.2)}
+.audio-card.fail{background:rgba(201,64,64,.08);border-color:rgba(201,64,64,.18)}
+.audio-badge{display:inline-block;font-size:11px;font-weight:500;padding:3px 10px;border-radius:2px;margin-bottom:12px;letter-spacing:.05em}
+.audio-badge.success{background:rgba(26,158,106,.2);color:#4DC98A}
+.audio-badge.fail{background:rgba(201,64,64,.2);color:#E08080}
+.ac-title{color:var(--cream);font-size:15px;font-weight:500;margin-bottom:2px}
+.ac-sub{color:rgba(245,240,232,.4);font-size:13px;margin-bottom:16px}
+.player{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.06);border-radius:8px;padding:10px 14px}
+.play-btn{width:34px;height:34px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .15s}
+.play-btn.s{background:rgba(26,158,106,.35)}.play-btn.f{background:rgba(201,64,64,.3)}.play-btn.t{background:var(--teal)}
+.play-btn:hover{transform:scale(1.08)}
+.play-btn svg{width:13px;height:13px;fill:white;margin-left:2px}
+.pbar{flex:1;height:3px;background:rgba(255,255,255,.1);border-radius:2px;cursor:pointer}
+.pfill{height:100%;border-radius:2px;width:0%;transition:width .1s}
+.pf-s{background:#4DC98A}.pf-f{background:#E08080}.pf-t{background:var(--teal-light)}
+.ptime{font-size:11px;color:rgba(245,240,232,.35);min-width:28px;text-align:right}
+.breakdown{margin-top:16px}
+.bdiv{font-size:11px;color:rgba(245,240,232,.35);letter-spacing:.07em;margin-bottom:8px;text-transform:uppercase}
+.bitem{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:rgba(245,240,232,.65);margin-bottom:6px;line-height:1.5}
+.bdot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px}
+/* ACCENT */
+.accent-section{background:var(--page)}
+.accent-wrap{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:700px){.accent-wrap{grid-template-columns:1fr}}
+.acard{background:var(--white);border-radius:14px;padding:28px;border:1px solid rgba(0,0,0,.07)}
+.acard-icon{width:46px;height:46px;border-radius:12px;background:rgba(26,158,143,.1);display:flex;align-items:center;justify-content:center;margin-bottom:14px;font-size:22px}
+.acard h3{font-family:'DM Serif Display',serif;font-size:20px;margin-bottom:8px}
+.acard p{font-size:13px;color:var(--muted);line-height:1.7}
+.atips{margin-top:14px;display:flex;flex-direction:column;gap:8px}
+.atip{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--muted)}
+.atip::before{content:'→';color:var(--teal);flex-shrink:0;font-weight:500}
+.arow{background:var(--page);border-radius:10px;padding:14px 16px;margin-top:8px}
+.alabel{font-size:14px;font-weight:500;color:var(--text);margin-bottom:2px}
+.alabel small{display:block;font-size:12px;color:var(--muted);font-weight:400;margin-bottom:10px}
+.arow-controls{display:flex;align-items:center;gap:10px}
+.mini-bar{flex:1;height:3px;background:rgba(0,0,0,.1);border-radius:2px;cursor:pointer}
+/* STEPS illustrated */
+.steps-section{background:var(--page)}
+.steps-2col{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+@media(max-width:780px){.steps-2col{grid-template-columns:1fr}}
+.illus-side{display:flex;justify-content:center}
+.illus-side svg{width:100%;max-width:380px;height:auto}
+.steps-card{background:var(--white);border-radius:20px;padding:36px;box-shadow:0 8px 32px rgba(0,0,0,.07)}
+.steps-card-title{font-family:'DM Serif Display',serif;font-size:26px;margin-bottom:6px}
+.steps-card-sub{font-size:14px;color:var(--muted);margin-bottom:28px;line-height:1.6}
+.srow{display:flex;align-items:flex-start;gap:16px;margin-bottom:18px}
+.srow:last-of-type{margin-bottom:0}
+.scircle{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#1A9E8F,#22C5B3);color:white;font-size:14px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(26,158,143,.3)}
+.sinfo h4{font-size:14px;font-weight:500;margin-bottom:3px}
+.sinfo p{font-size:13px;color:var(--muted);line-height:1.5}
+.sconnect{width:2px;height:14px;background:linear-gradient(to bottom,rgba(26,158,143,.25),transparent);margin-left:19px;margin-top:-2px;margin-bottom:4px}
+.spill{display:inline-block;font-size:10px;padding:2px 8px;border-radius:2px;font-weight:500;margin-top:4px;letter-spacing:.04em}
+.spill-y{background:rgba(26,158,143,.1);color:var(--teal)}
+.spill-c{background:rgba(200,169,110,.15);color:#8B6914}
+.spill-a{background:rgba(13,27,42,.08);color:var(--navy)}
+.sbtns{display:flex;gap:10px;margin-top:28px;flex-wrap:wrap}
+.btn-p{background:linear-gradient(135deg,#1A9E8F,#0D8070);color:white;border:none;padding:11px 24px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:opacity .2s}
+.btn-p:hover{opacity:.88}
+.btn-s{background:transparent;color:var(--teal);border:1.5px solid var(--teal);padding:11px 24px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.btn-s:hover{background:rgba(26,158,143,.06)}
+/* ONLINE */
+.online-section{background:var(--cream2)}
+.online-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:700px){.online-grid{grid-template-columns:1fr}}
+.ocard{background:var(--white);border-radius:14px;padding:26px;border:1px solid rgba(0,0,0,.07)}
+.ocard h3{font-size:15px;font-weight:500;margin-bottom:14px}
+.ostep{display:flex;gap:10px;font-size:13px;color:var(--muted);margin-bottom:9px;line-height:1.5}
+.ostep span{color:var(--teal);font-weight:500;flex-shrink:0}
+.tag-on{display:inline-block;font-size:10px;padding:2px 8px;border-radius:2px;background:rgba(26,158,143,.1);color:var(--teal);font-weight:500;letter-spacing:.05em;margin-bottom:12px}
+.tag-of{display:inline-block;font-size:10px;padding:2px 8px;border-radius:2px;background:rgba(200,169,110,.15);color:#8B6914;font-weight:500;letter-spacing:.05em;margin-bottom:12px}
+.onote{margin-top:14px;padding:14px 16px;background:rgba(26,158,143,.07);border-radius:10px;border-left:3px solid var(--teal);font-size:13px;color:var(--text);line-height:1.6}
+.onote strong{display:block;margin-bottom:3px;font-size:13px;font-weight:500}
+/* CHECKLIST */
+.cl-section{background:var(--navy)}
+.cl-section .section-tag{color:var(--teal-light)}
+.cl-section .section-title{color:var(--cream)}
+.cl-section .section-lead{color:rgba(245,240,232,.45)}
+.cl-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:600px){.cl-grid{grid-template-columns:1fr}}
+.cl-item{display:flex;align-items:flex-start;gap:10px;padding:13px 15px;background:rgba(255,255,255,.05);border-radius:8px;border:1px solid rgba(255,255,255,.07);cursor:pointer;transition:background .15s}
+.cl-item:hover{background:rgba(255,255,255,.08)}
+.cl-box{width:18px;height:18px;border-radius:4px;border:1.5px solid rgba(255,255,255,.2);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.cl-box.on{background:var(--teal);border-color:var(--teal)}
+.cl-box.on::after{content:'✓';color:white;font-size:11px}
+.cl-text{font-size:13px;color:rgba(245,240,232,.72);line-height:1.5}
+.cl-res{margin-top:18px;font-size:14px;color:rgba(245,240,232,.4);text-align:center;transition:color .3s}
+/* FOOTER */
+footer{background:var(--navy2);padding:28px 0}
+.footer-inner{max-width:1200px;margin:0 auto;padding:0 5vw;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.footer-logo{font-family:'DM Serif Display',serif;color:rgba(245,240,232,.35);font-size:16px}
+.footer-note{font-size:12px;color:rgba(245,240,232,.25)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">Cruize Consult</div>
+    <div class="nav-links">
+      <a href="#audio">Разборы</a>
+      <a href="./blank.html">Анкета</a>
+      <a href="#checklist">Чеклист</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="container">
+    <div class="hero-tag">Гостиничный департамент · Круизный лайнер</div>
+    <h1>Подготовься к интервью <em>правильно</em></h1>
+    <p class="hero-sub">Методичка для кандидатов на позиции официанта, горничной и бармена. Слушай примеры, изучай структуру, приходи готовым.</p>
+    <div class="hero-steps">
+      <div class="hero-step"><span>01</span>Послушай разборы</div>
+      <div class="hero-step"><span>02</span>Привыкни к акценту</div>
+      <div class="hero-step"><span>03</span>Заполни бланку</div>
+      <div class="hero-step"><span>04</span>Пробное интервью</div>
+      <div class="hero-step"><span>05</span>К Мариусу</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- АУДИО -->
+<section class="audio-section" id="audio">
+  <div class="container">
+    <div class="section-tag">Аудио разборы</div>
+    <h2 class="section-title" style="color:var(--cream)">
+      Два интервью — <em style="font-style:italic;color:var(--teal-light)">послушай оба</em>
+    </h2>
+    <p class="section-lead">
+      Одно прошло успешно. Второе — нет. Разница не в знаниях, а в том как человек себя держит, говорит и реагирует.
+    </p>
+
+    <div class="audio-grid">
+      <!-- SUCCESS -->
+      <div class="audio-card success">
+        <span class="audio-badge success">ПРОШЁЛ</span>
+        <div class="ac-title">Айгерим — официант, 23 года</div>
+        <div class="ac-sub">Первый контракт · Немецкий 4 месяца</div>
+
+        <div class="player">
+          <button class="play-btn s" onclick="togglePlay(1)" id="pbtn1">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <div class="pbar" onclick="seek(event,1)">
+            <div class="pfill pf-s" id="pfill1"></div>
+          </div>
+          <span class="ptime" id="ptime1">15:46</span>
+        </div>
+
+        <div class="breakdown">
+          <div class="bdiv">Почему прошла</div>
+          <div class="bitem"><div class="bdot" style="background:#4DC98A"></div>Зашла и сразу заговорила на немецком — без паузы</div>
+          <div class="bitem"><div class="bdot" style="background:#4DC98A"></div>Не сломалась под pressure: продолжала отвечать, даже когда Мариус перебивал</div>
+          <div class="bitem"><div class="bdot" style="background:#4DC98A"></div>Пыталась описывать место работы: еда, напитки, столы, обслуживание</div>
+          <div class="bitem"><div class="bdot" style="background:#4DC98A"></div>Спокойная энергия: не идеальный язык, но хороший communication flow</div>
+        </div>
+      </div>
+
+      <!-- FAIL -->
+     
+    </div>
+
+    <!-- DETAILED BREAKDOWN -->
+    <div class="case-study">
+      <div class="case-head">
+        <div>
+          <div class="section-tag">Разбор по минутам</div>
+          <h3>Айгерим: как она прошла интервью</h3>
+        </div>
+        <span class="case-pill">real interview case</span>
+      </div>
+
+      <!-- ACCORDION ITEM 1 -->
+      <div class="case-acc open">
+        <button class="case-acc-head" onclick="toggleCase(this)">
+          <span>1. Intro / первое впечатление</span>
+          <small>0:25 – 1:11</small>
+        </button>
+
+        <div class="case-acc-body">
+          <div class="listen-box">
+            <button class="mini-play" onclick="togglePlay(3)" id="pbtn3">▶ Слушать момент</button>
+            <div class="pbar mini-bar" onclick="seek(event,3)">
+              <div class="pfill pf-s" id="pfill3"></div>
+            </div>
+            <span class="ptime" id="ptime3">0:46</span>
+          </div>
+
+          <div class="dialogue">
+            <div class="speaker candidate">Candidate</div>
+            <p>“Meine Name ist Eigerim.”</p>
+            <p>“Ich bin 20 Jahre alt.”</p>
+            <p>“Jetzt studiere ich an der Kirchische Nationale Universität.”</p>
+            <p>“Im letzten Studienjahr.”</p>
+            <p>“Ich habe Arbeitserfahrung in Service und Gastronomie.”</p>
+            <p>“Ich war in Deutschland dreimal.”</p>
+          </div>
+
+          <div class="mini-analysis good">
+            <strong>Почему это сработало:</strong>
+            <p>Она сразу начала на немецком и не ждала, пока её “раскачают”. Да, были ошибки, но Мариус видел главное: кандидат может начать разговор, держать себя и не бояться говорить.</p>
+          </div>
+
+          <div class="mini-analysis good">
+            <strong>Очень важный момент:</strong>
+            <p>У Айгерим НЕ был идеальный немецкий. Но у неё была структура. Она шла по понятному порядку: кто она → где учится → опыт → Германия → сервис. Именно это любит Мариус.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ACCORDION ITEM 2 -->
+      <div class="case-acc">
+        <button class="case-acc-head" onclick="toggleCase(this)">
+          <span>2. Опыт работы / описание места</span>
+          <small>4:31 – 5:45</small>
+        </button>
+
+        <div class="case-acc-body">
+          <div class="listen-box">
+            <button class="mini-play" onclick="togglePlay(4)" id="pbtn4">▶ Слушать момент</button>
+            <div class="pbar mini-bar" onclick="seek(event,4)">
+              <div class="pfill pf-s" id="pfill4"></div>
+            </div>
+            <span class="ptime" id="ptime4">1:14</span>
+          </div>
+
+          <div class="dialogue">
+            <div class="speaker marius">Marius</div>
+            <p>“Was kannst du mir sagen?”</p>
+            <p>“Was ist das?”</p>
+            <p>“Du hast nur mir gesagt, dass das ist eine Bäckerei.”</p>
+            <p>“Was gibt's zum Essen?”</p>
+            <p>“Gibt es Bedienung?”</p>
+            <p>“Oder ist das nur Brötchen und Croissant mitzunehmen?”</p>
+            <p>“Gibt es Tische?”</p>
+          </div>
+
+          <div class="dialogue">
+            <div class="speaker candidate">Candidate</div>
+            <p>“Die Kunden können essen und mitnehmen auch.”</p>
+            <p>“Wir haben Frühstück.”</p>
+            <p>“Wir haben Kaffee.”</p>
+            <p>“Heiße Getränke.”</p>
+          </div>
+
+          <div class="mini-analysis good">
+            <strong>Что проверял Мариус:</strong>
+            <p>Он хотел понять: это было просто место “на кассе” или там был настоящий service. Для него важно услышать: гости, столы, меню, завтрак, напитки, обслуживание.</p>
+          </div>
+
+          <div class="mini-analysis good">
+            <strong>Почему структура спасает:</strong>
+            <p>Даже когда Айгерим путалась в языке, она всё равно шла по структуре: что это за место → что там продают → есть ли столы → есть ли сервис → что делают гости.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ACCORDION ITEM 3 -->
+      <div class="case-acc">
+        <button class="case-acc-head" onclick="toggleCase(this)">
+          <span>3. Pressure: “ты должен описывать”</span>
+          <small>7:21 – 9:10</small>
+        </button>
+
+        <div class="case-acc-body">
+          <div class="listen-box">
+            <button class="mini-play" onclick="togglePlay(5)" id="pbtn5">▶ Слушать момент</button>
+            <div class="pbar mini-bar" onclick="seek(event,5)">
+              <div class="pfill pf-s" id="pfill5"></div>
+            </div>
+            <span class="ptime" id="ptime5">1:49</span>
+          </div>
+
+          <div class="dialogue">
+            <div class="speaker marius">Marius</div>
+            <p>“Was ist das?”</p>
+            <p>“Du kannst nicht beschreiben.”</p>
+            <p>“Das musst du beschreiben.”</p>
+            <p>“Weil, wenn ich hier lese, ich weiß es nicht, was ist das.”</p>
+            <p>“Gibt es Bedienung?”</p>
+            <p>“Das musst du beschreiben.”</p>
+          </div>
+
+          <div class="mini-analysis good">
+            <strong>Почему Айгерим не провалилась:</strong>
+            <p>Она не спорила и не закрылась. Мариус давил, но она продолжала отвечать. Именно это важно: не идеальная грамматика, а способность не теряться под давлением.</p>
+          </div>
+
+          <div class="mini-analysis good">
+            <strong>Что важно понять кандидатам:</strong>
+            <p>Мариус не ждёт perfect German. Он ждёт человека, который умеет спокойно объяснять и держать conversation flow. Если у тебя есть структура — интервью становится намного легче.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ACCORDION ITEM 4 -->
+      <div class="case-acc">
+        <button class="case-acc-head" onclick="toggleCase(this)">
+          <span>4. English check / практика языка</span>
+          <small>9:13 – 11:05</small>
+        </button>
+
+        <div class="case-acc-body">
+          <div class="listen-box">
+            <button class="mini-play" onclick="togglePlay(6)" id="pbtn6">▶ Слушать момент</button>
+            <div class="pbar mini-bar" onclick="seek(event,6)">
+              <div class="pfill pf-s" id="pfill6"></div>
+            </div>
+            <span class="ptime" id="ptime6">1:52</span>
+          </div>
+
+          <div class="dialogue">
+            <div class="speaker marius">Marius</div>
+            <p>“Do you speak English?”</p>
+            <p>“For how long have you been learning English?”</p>
+            <p>“So did you speak English with somebody?”</p>
+            <p>“Not guest, colleagues.”</p>
+            <p>“Did you have tourist in Lubbock?”</p>
+            <p>“You have tourists from where?”</p>
+          </div>
+
+          <div class="dialogue">
+            <div class="speaker candidate">Candidate</div>
+            <p>“Yes, I can speak English.”</p>
+            <p>“I have been learning English about two or three years.”</p>
+            <p>“I practiced with international guests.”</p>
+          </div>
+
+          <div class="mini-analysis good">
+            <strong>Что важно:</strong>
+            <p>Она не сказала “my English is bad”. Она просто отвечала. Для Мариуса это плюс: человек не боится переключаться и может держать коммуникацию.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ACCORDION ITEM 5 -->
+      <div class="case-acc">
+        <button class="case-acc-head" onclick="toggleCase(this)">
+          <span>5. Cruise ship safety</span>
+          <small>11:31 – 14:30</small>
+        </button>
+
+        <div class="case-acc-body">
+          <div class="listen-box">
+            <button class="mini-play" onclick="togglePlay(7)" id="pbtn7">▶ Слушать момент</button>
+            <div class="pbar mini-bar" onclick="seek(event,7)">
+              <div class="pfill pf-s" id="pfill7"></div>
+            </div>
+            <span class="ptime" id="ptime7">2:59</span>
+          </div>
+
+          <div class="dialogue">
+            <div class="speaker marius">Marius</div>
+            <p>“Why do we need English on the cruise ship?”</p>
+            <p>“This is German company. With German guests, why do we need English?”</p>
+            <p>“The reason is safety language on the ship is English.”</p>
+            <p>“Do you know about safety on the cruise ship?”</p>
+            <p>“What is safety?”</p>
+            <p>“There are safety regulations, safety rules.”</p>
+            <p>“How to put out the fire, alarms, procedures about safety.”</p>
+            <p>“All this training is in English. You understand?”</p>
+          </div>
+
+          <div class="mini-analysis good">
+            <strong>Главный урок:</strong>
+            <p>На лайнере английский нужен не только для гостей. Он нужен для safety, emergency, crew communication. Кандидат должен знать это заранее.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ACCORDION ITEM 6 -->
+      <div class="case-acc">
+        <button class="case-acc-head" onclick="toggleCase(this)">
+          <span>6. Финальный feedback</span>
+          <small>14:30 – 16:05</small>
+        </button>
+
+        <div class="case-acc-body">
+          <div class="listen-box">
+            <button class="mini-play" onclick="togglePlay(8)" id="pbtn8">▶ Слушать момент</button>
+            <div class="pbar mini-bar" onclick="seek(event,8)">
+              <div class="pfill pf-s" id="pfill8"></div>
+            </div>
+            <span class="ptime" id="ptime8">1:35</span>
+          </div>
+
+          <div class="dialogue">
+            <div class="speaker marius">Marius</div>
+            <p>“You did well.”</p>
+            <p>“Give me some more information about the places you were.”</p>
+            <p>“McDonald's, Burger King, I don't need information.”</p>
+            <p>“For the bakery, because you had menu, you need to say more about.”</p>
+            <p>“What kind of bakery it was?”</p>
+            <p>“If you have service, if you have food, if you have kitchen, then you prepare breakfast.”</p>
+            <p>“But you need to describe.”</p>
+            <p>“Practice very well.”</p>
+            <p>“Learn about safety.”</p>
+          </div>
+
+          <div class="mini-analysis good">
+            <strong>Почему это сигнал, что она прошла:</strong>
+            <p>Он не сказал “you are not ready”. Он дал конкретный feedback: больше описывать места и выучить safety. Это значит, что база у неё была хорошая.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CSS: добавь к своему CSS -->
+<style>
+.case-study{margin-top:26px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:24px}
+.case-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:16px}
+.case-head h3{font-family:'DM Serif Display',serif;color:var(--cream);font-size:28px;font-weight:400;margin:0}
+.case-pill{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal-light);background:rgba(26,158,143,.14);border:1px solid rgba(26,158,143,.22);border-radius:999px;padding:6px 10px;white-space:nowrap}
+.case-acc{border:1px solid rgba(255,255,255,.08);border-radius:12px;background:rgba(255,255,255,.035);margin-bottom:10px;overflow:hidden}
+.case-acc-head{width:100%;background:transparent;border:none;color:var(--cream);display:flex;align-items:center;justify-content:space-between;gap:14px;padding:15px 16px;cursor:pointer;font-family:'DM Sans',sans-serif;text-align:left}
+.case-acc-head span{font-size:14px;font-weight:500}.case-acc-head small{font-size:11px;color:rgba(245,240,232,.42);white-space:nowrap}
+.case-acc-body{display:none;padding:0 16px 16px}.case-acc.open .case-acc-body{display:block}
+.listen-box{display:flex;align-items:center;justify-content:space-between;gap:10px;background:rgba(0,0,0,.18);border-radius:10px;padding:10px 12px;margin-bottom:14px}.listen-box span{font-size:12px;color:rgba(245,240,232,.45)}
+.mini-play{background:rgba(26,158,106,.26);color:#4DC98A;border:1px solid rgba(77,201,138,.22);border-radius:8px;padding:8px 12px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif}.mini-play:hover{background:rgba(26,158,106,.35)}
+.dialogue{border-left:2px solid rgba(255,255,255,.12);padding-left:14px;margin:14px 0}.speaker{font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:7px}.speaker.marius{color:#E0B96A}.speaker.candidate{color:#4DC98A}.dialogue p{font-size:13px;line-height:1.65;color:rgba(245,240,232,.68);margin:4px 0}
+.mini-analysis{border-radius:12px;padding:13px 14px;margin-top:14px}.mini-analysis.good{background:rgba(26,158,106,.08);border:1px solid rgba(26,158,106,.15)}.mini-analysis strong{display:block;color:var(--cream);font-size:13px;margin-bottom:5px}.mini-analysis p{font-size:13px;line-height:1.65;color:rgba(245,240,232,.62);margin:0}
+@media(max-width:700px){.case-head{align-items:flex-start;flex-direction:column}.case-acc-head{align-items:flex-start;flex-direction:column}.listen-box{align-items:flex-start;flex-direction:column}}
+</style>
+
+<!-- JS: добавь к своему JS -->
+<script>
+function toggleCase(btn){
+  const item = btn.closest('.case-acc');
+  item.classList.toggle('open');
+}
+
+// Работает, если у тебя audio1/audio2 уже подключены в JS.
+// start/end в секундах. Если пока нет audio object — можешь оставить, кнопки не сломают страницу.
+function playSegment(audioId,start,end){
+  const audio = window['audio' + audioId];
+  if(!audio){
+    console.log('Audio object not found: audio' + audioId);
+    return;
+  }
+  audio.currentTime = start;
+  audio.play();
+
+  const checker = setInterval(() => {
+    if(audio.currentTime >= end || audio.paused){
+      audio.pause();
+      clearInterval(checker);
+    }
+  }, 200);
+}
+</script>
+
+
+
+<!-- АУДИО -->
+
+
+
+<!-- АКЦЕНТ -->
+<section class="accent-section" id="accent">
+  <div class="container">
+    <div class="section-tag">Акцент интервьюера</div>
+    <h2 class="section-title">Привыкни к акценту Мариуса</h2>
+    <p class="section-lead">Мариус — киприот. Его английский и немецкий звучат специфично. Слышишь впервые на интервью — теряешь время и нервы. Слушай здесь заранее.</p>
+    <div class="accent-wrap">
+      <div class="acard">
+        <div class="acard-icon">🇨🇾</div>
+        <h3>Кипрский акцент — что важно знать</h3>
+        <p>Киприоты говорят на английском с греческим влиянием: растянутые гласные, мягкие согласные, нестандартное ударение. В немецком — похожая картина. Ухо привыкает за 3–4 прослушивания.</p>
+        <div class="atips">
+          <div class="atip">Слушай записи каждый день за 3 дня до встречи</div>
+          <div class="atip">Не понял вопрос — переспроси. Мариус ценит это больше молчания</div>
+          <div class="atip">«Could you please repeat that?» — нормальная фраза, не слабость</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- СИСТЕМА — illustrated -->
+<section class="steps-section" id="system">
+  <div class="container">
+    <div class="steps-2col">
+      <!-- Illustration -->
+      <div class="illus-side">
+        <svg viewBox="0 0 400 430" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="200" cy="240" rx="175" ry="165" fill="#D6E8F5" opacity=".55"/>
+          <!-- Shadow -->
+          <ellipse cx="200" cy="390" rx="95" ry="16" fill="#B8D4E8" opacity=".35"/>
+          <!-- Legs -->
+          <rect x="177" y="308" width="19" height="72" rx="9.5" fill="#5B8DB8"/>
+          <rect x="204" y="303" width="19" height="77" rx="9.5" fill="#4A7DAA"/>
+          <!-- Shoes -->
+          <ellipse cx="186" cy="381" rx="17" ry="8" fill="#2C4A6E"/>
+          <ellipse cx="213" cy="381" rx="17" ry="8" fill="#2C4A6E"/>
+          <!-- Hoodie body -->
+          <rect x="158" y="216" width="84" height="102" rx="22" fill="#E8834A"/>
+          <path d="M158 238 Q200 222 242 238" stroke="#D4722A" stroke-width="3" fill="none"/>
+          <rect x="176" y="276" width="48" height="30" rx="9" fill="#D4722A"/>
+          <!-- Head -->
+          <ellipse cx="200" cy="198" rx="40" ry="44" fill="#F5C896"/>
+          <!-- Hair -->
+          <path d="M161 188 Q163 146 200 141 Q237 146 239 188 Q231 170 200 167 Q169 170 161 188Z" fill="#3D2B1A"/>
+          <!-- Eyes -->
+          <ellipse cx="187" cy="196" rx="5.5" ry="6.5" fill="#2C1A0E"/>
+          <ellipse cx="213" cy="196" rx="5.5" ry="6.5" fill="#2C1A0E"/>
+          <circle cx="189" cy="194" r="2" fill="white"/>
+          <circle cx="215" cy="194" r="2" fill="white"/>
+          <!-- Smile -->
+          <path d="M190 210 Q200 218 210 210" stroke="#C4855A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <!-- Right arm + laptop -->
+          <path d="M242 240 Q274 229 290 246 Q300 261 283 270 Q266 265 250 256Z" fill="#E8834A"/>
+          <!-- Left arm -->
+          <path d="M158 240 Q126 232 114 252 Q111 266 128 272 Q148 268 160 256Z" fill="#E8834A"/>
+          <!-- Laptop -->
+          <rect x="258" y="238" width="92" height="62" rx="7" fill="#2C4A6E"/>
+          <rect x="263" y="243" width="82" height="52" rx="5" fill="#3A6B9E"/>
+          <rect x="268" y="251" width="52" height="4" rx="2" fill="#7DB8E0" opacity=".7"/>
+          <rect x="268" y="259" width="42" height="3" rx="2" fill="#7DB8E0" opacity=".5"/>
+          <rect x="268" y="266" width="58" height="3" rx="2" fill="#7DB8E0" opacity=".5"/>
+          <rect x="268" y="273" width="36" height="3" rx="2" fill="#1A9E8F" opacity=".9"/>
+          <rect x="252" y="298" width="104" height="8" rx="4" fill="#1E3A5C"/>
+          <!-- Floating badges -->
+          <circle cx="76" cy="152" r="30" fill="white" opacity=".88" filter="drop-shadow(0 4px 14px rgba(0,0,0,.1))"/>
+          <text x="76" y="160" text-anchor="middle" font-size="22">🎙️</text>
+          <circle cx="335" cy="118" r="28" fill="white" opacity=".88" filter="drop-shadow(0 4px 14px rgba(0,0,0,.1))"/>
+          <text x="335" y="126" text-anchor="middle" font-size="20">🚢</text>
+          <circle cx="344" cy="290" r="26" fill="white" opacity=".88" filter="drop-shadow(0 4px 14px rgba(0,0,0,.1))"/>
+          <text x="344" y="298" text-anchor="middle" font-size="18">✅</text>
+          <circle cx="62" cy="300" r="24" fill="white" opacity=".88" filter="drop-shadow(0 4px 14px rgba(0,0,0,.1))"/>
+          <text x="62" y="308" text-anchor="middle" font-size="17">🇩🇪</text>
+        </svg>
+      </div>
+      <!-- Steps card -->
+      <div class="steps-card">
+        <div class="steps-card-title">Пошаговая инструкция</div>
+        <div class="steps-card-sub">Мы поддерживаем тебя на каждом этапе — от первого знакомства до Мариуса</div>
+        <div class="srow">
+          <div class="scircle">1</div>
+          <div class="sinfo">
+            <h4>Слушаешь разборы дома</h4>
+            <p>Открываешь этот сайт, слушаешь оба интервью минимум дважды. Привыкаешь к акценту Мариуса.</p>
+            <span class="spill spill-c">Кандидат</span>
+          </div>
+        </div>
+        <div class="sconnect"></div>
+        <div class="srow">
+          <div class="scircle">2</div>
+          <div class="sinfo">
+            <h4>Групповая встреча + бланка</h4>
+            <p>Разбираем интервью вживую. Заполняешь бланку прямо в офисе — 1–1.5 часа. Сдаёшь менеджеру до выхода.</p>
+            <span class="spill spill-y">Менеджер</span>
+          </div>
+        </div>
+        <div class="sconnect"></div>
+        <div class="srow">
+          <div class="scircle">3</div>
+          <div class="sinfo">
+            <h4>Голосовое в Telegram-группу</h4>
+            <p>1–2 минуты на немецком. Слушаешь троих других — пишешь комментарий. Дедлайн 22:00.</p>
+            <span class="spill spill-c">Кандидат</span>
+          </div>
+        </div>
+        <div class="sconnect"></div>
+        <div class="srow">
+          <div class="scircle">4</div>
+          <div class="sinfo">
+            <h4>Проверка бланки</h4>
+            <p>Менеджер присылает фото — получает конкретные замечания по каждому кандидату перед пробным.</p>
+            <span class="spill spill-a">менеджер</span>
+          </div>
+        </div>
+        <div class="sconnect"></div>
+        <div class="srow">
+          <div class="scircle">5</div>
+          <div class="sinfo">
+            <h4>Пробное интервью → Мариус</h4>
+            <p>Формат реального интервью. Прошёл — идёшь к Мариусу. Не готов — приходишь через неделю.</p>
+            <span class="spill spill-y">Менеджер</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ОФИС vs ОНЛАЙН -->
+<section class="online-section" id="online">
+  <div class="container">
+    <div class="section-tag">Формат</div>
+    <h2 class="section-title">Офис или онлайн — система одна</h2>
+    <p class="section-lead">Живёшь в Бишкеке — приходишь лично. В регионе — всё то же самое дистанционно.</p>
+    <div class="online-grid">
+      <div class="ocard">
+        <span class="tag-of">ОФИС · БИШКЕК</span>
+        <div class="ostep"><span>1.</span>Слушаешь разборы на сайте дома до встречи</div>
+        <div class="ostep"><span>2.</span>Приходишь в офис — смотрим 2 интервью вместе</div>
+        <div class="ostep"><span>3.</span>Заполняешь бланку здесь же (1–1.5 часа)</div>
+        <div class="ostep"><span>4.</span>Голосовое в ТГ-группу до 22:00</div>
+        <div class="ostep"><span>5.</span>Через 2 дня — пробное интервью в офисе</div>
+      </div>
+      <div class="ocard">
+        <span class="tag-on">ОНЛАЙН · РЕГИОНЫ</span>
+        <div class="ostep"><span>1.</span>Слушаешь разборы на сайте дома</div>
+        <div class="ostep"><span>2.</span>Групповой разбор — Zoom со всей группой</div>
+        <div class="ostep"><span>3.</span>Бланка дома — дедлайн 24 часа, фото менеджеру</div>
+        <div class="ostep"><span>4.</span>Голосовое на немецком в ТГ-группу — обязательно</div>
+        <div class="ostep"><span>5.</span>Пробное интервью в Zoom — камера включена</div>
+        <div class="onote"><strong>Важно для регионов</strong>Параллельно с заполнением бланки говори вслух по-немецки. Текст можно сгенерировать, голос — нет.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ЧЕКЛИСТ -->
+<section class="cl-section" id="checklist">
+  <div class="container">
+    <div class="section-tag">День интервью</div>
+    <h2 class="section-title">Чеклист перед встречей с Мариусом</h2>
+    <p class="section-lead">Отмечай по одному. Все пункты должны быть закрыты.</p>
+    <div class="cl-grid">
+      <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-box"></div><div class="cl-text">Знаю питч наизусть — имя, город, опыт, цель. 30 секунд.</div></div>
+      <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-box"></div><div class="cl-text">Первые слова на немецком — без паузы.</div></div>
+      <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-box"></div><div class="cl-text">Знаю состав цезаря и греческого салата.</div></div>
+      <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-box"></div><div class="cl-text">Знаю 2 супа и могу описать их вкусно.</div></div>
+      <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-box"></div><div class="cl-text">Знаю ответ: «Почему лайнер?» — опыт, рост, туризм КР.</div></div>
+      <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-box"></div><div class="cl-text">Слышал акцент Мариуса минимум 5 раз.</div></div>
+      <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-box"></div><div class="cl-text">Знаю когда заканчиваю учёбу — точно как в CV.</div></div>
+      <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-box"></div><div class="cl-text">Знаю население и расположение своего города.</div></div>
+      <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-box"></div><div class="cl-text">Опрятный внешний вид. Улыбка.</div></div>
+      <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-box"></div><div class="cl-text">«Yes, I'm ready!» — не «I think so».</div></div>
+      <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-box"></div><div class="cl-text">Не говорю лишнего — Мариус следит за энергией.</div></div>
+      <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-box"></div><div class="cl-text">Подготовил 1–2 вопроса для Мариуса.</div></div>
+    </div>
+    <div class="cl-res" id="cl-res"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Cruize Consult</div>
+    <div class="footer-note">Только для внутреннего использования</div>
+  </div>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════════════
+   AUDIO CONFIG
+   ───────────────────────────────────────────────────
+   1. Положи аудиофайл в папку audio/ рядом с HTML
+   2. Пропиши путь в поле src ниже
+   3. Укажи реальную длительность в секундах (duration)
+   ═══════════════════════════════════════════════════ */
+const AUDIO = {
+  1: { src: './audio/aigerim-success.mp3', duration: 42 },
+
+  3: { src: 'audio/Intro-success.mp3', duration: 46 },
+  4: { src: 'audio/work-experience.mp3', duration: 74 },
+  5: { src: 'audio/pressure-success.mp3', duration: 109 },
+  6: { src: 'audio/English-check-success.mp3', duration: 112 },
+  7: { src: 'audio/Safety-success.mp3', duration: 179 },
+  8: { src: 'audio/Feedback.mp3', duration: 95 }
+};
+
+const els={}, playing={}, fake={}, timers={};
+const PLAY_SVG='<svg viewBox="0 0 24 24" style="width:13px;height:13px;fill:white;margin-left:2px"><path d="M8 5v14l11-7z"/></svg>';
+const PAUSE_SVG='<svg viewBox="0 0 24 24" style="width:13px;height:13px;fill:white"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
+
+function getEl(id){
+  if(!els[id]){
+    const a=AUDIO[id];
+    if(!a?.src) return null;
+    const el=new Audio(a.src);
+    el.addEventListener('timeupdate',()=>updateBar(id,el.currentTime/el.duration*100,el.duration-el.currentTime));
+    el.addEventListener('ended',()=>stopAll(id));
+    els[id]=el;
+  }
+  return els[id];
+}
+
+function updateBar(id,pct,rem){
+  const f=document.getElementById('pfill'+id);
+  const t=document.getElementById('ptime'+id);
+
+  if(f) f.style.width=Math.min(pct,100)+'%';
+
+  if(t && rem!=null){
+    const m = Math.floor(rem / 60);
+    const s = Math.max(0, Math.floor(rem % 60));
+    t.textContent = `${m}:${String(s).padStart(2,'0')}`;
+  }
+}
+function stopAll(id){
+  clearInterval(timers[id]);
+
+  const el = els[id];
+  if (el) {
+    el.pause();
+    el.currentTime = 0;
+  }
+
+  playing[id] = false;
+  fake[id] = 0;
+
+  const b = document.getElementById('pbtn' + id);
+  if (b) b.innerHTML = PLAY_SVG;
+
+  const a = AUDIO[id];
+  updateBar(id, 0, a ? a.duration : 0);
+}
+
+function togglePlay(id){
+  const b = document.getElementById('pbtn' + id);
+
+  if (playing[id]) {
+    const el = els[id];
+    if (el) el.pause();
+
+    clearInterval(timers[id]);
+    playing[id] = false;
+
+    if (b) b.innerHTML = PLAY_SVG;
+    return;
+  }
+
+  Object.keys(AUDIO).forEach(k => {
+    const audioId = Number(k);
+    if (audioId !== id && playing[audioId]) {
+      stopAll(audioId);
+    }
+  });
+
+  playing[id] = true;
+  if (b) b.innerHTML = PAUSE_SVG;
+
+  const el = getEl(id);
+  const dur = AUDIO[id]?.duration || 30;
+
+  if (el) {
+    el.play().catch(() => startFake(id, dur));
+  } else {
+    startFake(id, dur);
+  }
+}
+
+function startFake(id,dur){
+  if(!fake[id]) fake[id]=0;
+  timers[id]=setInterval(()=>{
+    fake[id]=Math.min(fake[id]+(100/(dur*10)),100);
+    updateBar(id,fake[id],dur*(1-fake[id]/100));
+    if(fake[id]>=100) stopAll(id);
+  },100);
+}
+
+function seek(e,id){
+  const bar=e.currentTarget;
+  const pct=Math.max(0,Math.min(100,(e.clientX-bar.getBoundingClientRect().left)/bar.offsetWidth*100));
+  const el=els[id];
+  if(el&&el.duration){el.currentTime=(pct/100)*el.duration;}
+  else{fake[id]=pct;updateBar(id,pct,(AUDIO[id]?.duration||30)*(1-pct/100));}
+}
+
+function toggleCheck(item){
+  item.querySelector('.cl-box').classList.toggle('on');
+  const total=document.querySelectorAll('.cl-box').length;
+  const done=document.querySelectorAll('.cl-box.on').length;
+  const r=document.getElementById('cl-res');
+  if(done===total){r.style.color='#4DC98A';r.textContent='Готов к интервью с Мариусом ✓';}
+  else{r.style.color='rgba(245,240,232,.4)';r.textContent=done+' из '+total;}
+}
+
+
+</script>
+</body>
+</html>
