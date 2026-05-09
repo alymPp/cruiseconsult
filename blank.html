@@ -1,0 +1,1016 @@
+    <!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Пример заполнения анкеты — интервью с Мариусом</title>
+
+  <style>
+    :root {
+      --text: #1d1d1f;
+      --muted: #6e6e73;
+      --line: #d9d9de;
+      --soft: #f5f5f7;
+      --accent: #0071e3;
+      --success: #1d9e75;
+      --warning: #b36b00;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: #ececef;
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .lang-menu {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(236,236,239,.82);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(0,0,0,.08);
+      padding: 10px 16px;
+    }
+
+    .lang-menu-inner {
+      width: 210mm;
+      max-width: 100%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .lang-title {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .lang-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .lang-btn {
+      border: 1px solid #d1d1d6;
+      background: white;
+      color: var(--text);
+      border-radius: 999px;
+      width: 50px;
+      font-size: 22px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .lang-btn.active {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 20px auto;
+      background: #fff;
+      padding: 16mm 15mm;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+    }
+
+    .cover {
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 14px;
+      margin-bottom: 18px;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(0,113,227,.08);
+      padding: 4px 9px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    h1 {
+      font-size: 25px;
+      line-height: 1.15;
+      margin: 0 0 8px;
+      letter-spacing: -0.03em;
+    }
+
+    .lead {
+      max-width: 650px;
+      color: var(--muted);
+      margin: 0;
+      font-size: 13px;
+    }
+
+    .candidate-card {
+      margin: 18px 0;
+      background: var(--soft);
+      border: 1px solid #e7e7eb;
+      border-radius: 16px;
+      padding: 14px 16px;
+    }
+
+    .candidate-name {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .candidate-meta {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .section {
+      margin-top: 18px;
+      page-break-inside: avoid;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      padding-bottom: 7px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .qa {
+      margin: 10px 0 12px;
+      page-break-inside: avoid;
+    }
+
+    .q {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      margin-bottom: 3px;
+    }
+
+    .a {
+      background: #fff;
+      border: 1px solid #ececf0;
+      border-radius: 10px;
+      padding: 9px 11px;
+    }
+
+    .answer {
+      font-size: 13.5px;
+      color: #1d1d1f;
+    }
+
+    .rus-note {
+      margin-top: 6px;
+      font-size: 11.5px;
+      color: var(--muted);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .note {
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--muted);
+      background: #fbfbfd;
+      border-left: 3px solid var(--accent);
+      padding: 8px 10px;
+      border-radius: 8px;
+    }
+
+    .good-box {
+      background: rgba(29,158,117,.08);
+      border: 1px solid rgba(29,158,117,.20);
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-top: 10px;
+      color: #124f3c;
+      page-break-inside: avoid;
+    }
+
+    .warning-box {
+      background: rgba(179,107,0,.08);
+      border: 1px solid rgba(179,107,0,.20);
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-top: 10px;
+      color: #6b4308;
+      page-break-inside: avoid;
+    }
+
+    .pitch {
+      font-size: 14px;
+      line-height: 1.65;
+      background: #f9f9fb;
+      border: 1px solid #e7e7eb;
+      border-radius: 14px;
+      padding: 14px 16px;
+      page-break-inside: avoid;
+    }
+
+    .checklist {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px 14px;
+      margin-top: 8px;
+    }
+
+    .check {
+      font-size: 12.5px;
+      color: #2b2b2d;
+    }
+
+    .check::before {
+      content: "✓";
+      color: var(--success);
+      font-weight: 800;
+      margin-right: 6px;
+    }
+
+
+    .footer {
+      margin-top: 22px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 11px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .lang-menu-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.back-btn{
+  text-decoration:none;
+  color:#1d1d1f;
+  background:white;
+  border:1px solid #d1d1d6;
+  border-radius:999px;
+  padding:8px 14px;
+  font-size:12px;
+  font-weight:700;
+  white-space:nowrap;
+}
+
+.back-btn:hover{
+  background:#f5f5f7;
+}
+
+@media(max-width:768px){
+  .lang-menu-inner{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+
+  .back-btn{
+    width:100%;
+    text-align:center;
+    padding:11px 14px;
+    font-size:13px;
+  }
+
+  .lang-buttons{
+    width:100%;
+  }
+}
+
+    @media(max-width: 800px) {
+      .page { width: calc(100% - 24px); padding: 22px; }
+      .grid-2, .checklist { grid-template-columns: 1fr; }
+      .lang-menu-inner { width: 100%; }
+    }
+
+    @media print {
+      body { background: #fff; }
+      .lang-menu { display: none; }
+      .page {
+        margin: 0;
+        width: 210mm;
+        min-height: 297mm;
+        box-shadow: none;
+        padding: 15mm 14mm;
+      }
+      @page { size: A4; margin: 0; }
+      .section, .qa, .good-box, .warning-box, .pitch { break-inside: avoid; }
+    }
+
+    @media (max-width: 768px) {
+  body {
+    font-size: 14px;
+    background: #fff;
+  }
+
+  .lang-menu {
+    padding: 10px 12px;
+  }
+
+  .lang-menu-inner {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .lang-title {
+    text-align: center;
+    font-size: 12px;
+  }
+
+  .lang-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .lang-btn {
+    width: 100%;
+    font-size: 22px;
+  }
+
+  .page {
+    width: 100%;
+    min-height: auto;
+    margin: 0;
+    padding: 18px 14px 32px;
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+
+  .lead {
+    font-size: 13px;
+  }
+
+  .candidate-card {
+    padding: 13px;
+    border-radius: 14px;
+  }
+
+  .candidate-name {
+    font-size: 16px;
+  }
+
+  .candidate-meta {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .section {
+    margin-top: 20px;
+  }
+
+  .section-title {
+    font-size: 15px;
+    align-items: flex-start;
+  }
+
+  .num {
+    width: 22px;
+    height: 22px;
+    font-size: 10px;
+  }
+
+  .grid-2,
+  .checklist {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .qa {
+    margin: 9px 0 11px;
+  }
+
+  .q {
+    font-size: 10.5px;
+  }
+
+  .a {
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  .answer {
+    font-size: 13.5px;
+  }
+
+  .pitch {
+    font-size: 13.5px;
+    padding: 13px;
+  }
+
+  .note,
+  .good-box,
+  .warning-box {
+    font-size: 12px;
+    padding: 10px;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 6px;
+    font-size: 10.5px;
+  }
+}
+
+@media (max-width: 380px) {
+  h1 {
+    font-size: 20px;
+  }
+
+  .page {
+    padding: 16px 12px 28px;
+  }
+
+  .lang-btn {
+    font-size: 11px;
+    padding: 9px 10px;
+  }
+}
+
+.topbar{
+  position: sticky;
+  top: 0;
+  z-index: 999;
+
+  width: 100%;
+  max-width: 680px;
+
+  margin: 0 auto;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:12px 16px;
+
+  background:rgba(255,255,255,0.72);
+  backdrop-filter:blur(20px);
+
+  border-bottom:1px solid rgba(0,0,0,0.05);
+  border-radius: 0 0 18px 18px;
+}
+
+/* BACK */
+
+.apple-back{
+  display:flex;
+  align-items:center;
+  gap:5px;
+
+  text-decoration:none;
+
+  color:#0071e3;
+
+  font-size:13px;
+  font-weight:500;
+
+  padding:7px 10px;
+
+  border-radius:999px;
+
+  transition:.2s;
+}
+
+.apple-back:hover{
+  background:rgba(0,0,0,0.04);
+}
+
+.apple-back span:first-child{
+  font-size:15px;
+}
+
+/* LANGUAGE */
+
+.lang-switch{
+  display:flex;
+  align-items:center;
+  gap:6px;
+
+  background:#f5f5f7;
+
+  padding:4px;
+
+  border-radius:999px;
+
+  border:1px solid rgba(0,0,0,0.05);
+}
+
+.lang-btn{
+  border:none;
+  background:transparent;
+
+  padding:7px 11px;
+
+  border-radius:999px;
+
+  font-size:11px;
+  font-weight:700;
+
+  color:#6e6e73;
+
+  cursor:pointer;
+
+  transition:.2s;
+}
+
+.lang-btn.active{
+  background:white;
+  color:#1d1d1f;
+
+  box-shadow:
+    0 1px 2px rgba(0,0,0,0.06),
+    0 4px 12px rgba(0,0,0,0.04);
+}
+
+@media(max-width:768px){
+
+  .topbar{
+    padding:10px 12px;
+  }
+
+  .apple-back{
+    font-size:12px;
+    padding:6px 8px;
+  }
+
+  .lang-btn{
+    padding:6px 10px;
+    font-size:10px;
+  }
+
+}
+  </style>
+</head>
+
+<body>
+<div class="topbar">
+
+  <a href="trainings.html" class="apple-back">
+    <span>←</span>
+    <span>Back</span>
+  </a>
+
+  <div class="lang-switch">
+    <button class="lang-btn active" id="btn-en" onclick="setLanguage('en')">
+      EN
+    </button>
+
+    <button class="lang-btn" id="btn-de" onclick="setLanguage('de')">
+      DE
+    </button>
+  </div>
+
+</div>
+  <main class="page">
+    <header class="cover">
+      <div class="tag">Пример заполнения</div>
+      <h1>Анкета подготовки к интервью с Мариусом</h1>
+      <p class="lead" data-key="lead"></p>
+    </header>
+
+    <section class="candidate-card">
+      <div class="candidate-name">Alym — кандидат на позицию Waiter</div>
+      <div class="candidate-meta">23 года · Бишкек, Кыргызстан · 3 года опыта в сервисе и гастрономии · Sheraton / IWA Rooftop Restaurant</div>
+    </section>
+
+    <section class="section">
+      <div class="section-title"><span class="num">1</span> Личные данные</div>
+
+      <div class="grid-2">
+        <div class="qa">
+          <div class="q">Имя</div>
+          <div class="a answer">Alym Saparov</div>
+        </div>
+        <div class="qa">
+          <div class="q">Возраст</div>
+          <div class="a answer" data-key="age"></div>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q">Откуда ты?</div>
+        <div class="a answer" data-key="city"></div>
+        <div class="rus-note">Объясняем город простыми словами: это столица, сколько людей, где находится.</div>
+      </div>
+
+      <div class="qa">
+        <div class="q">Когда ты закончишь университет?</div>
+        <div class="a answer" data-key="university"></div>
+        <div class="rus-note">Важно знать ответ по своему CV.</div>
+      </div>
+
+      <div class="note">
+        Для Мариуса важно: если название кыргызское или русское, нужно объяснить простыми словами. Не думай, что он сам поймёт название города, ресторана или блюда.
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title"><span class="num">2</span> Опыт работы</div>
+
+      <div class="qa">
+        <div class="q">Где ты работал?</div>
+        <div class="a answer" data-key="workPlace"></div>
+      </div>
+
+      <div class="qa">
+        <div class="q">Что это за место?</div>
+        <div class="a answer" data-key="placeDescription"></div>
+        <div class="rus-note">Не просто название. Нужно сказать: отель, ресторан, есть столы, меню и сервис.</div>
+      </div>
+
+      <div class="grid-2">
+        <div class="qa">
+          <div class="q">Кухня</div>
+          <div class="a answer" data-key="cuisine"></div>
+        </div>
+        <div class="qa">
+          <div class="q">Роль</div>
+          <div class="a answer" data-key="role"></div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="qa">
+          <div class="q">Сколько работал?</div>
+          <div class="a answer" data-key="duration"></div>
+        </div>
+        <div class="qa">
+          <div class="q">Команда</div>
+          <div class="a answer" data-key="team"></div>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q">Какие гости приходили?</div>
+        <div class="a answer" data-key="guests"></div>
+      </div>
+
+      <div class="qa">
+        <div class="q">Самое популярное блюдо</div>
+        <div class="a answer" data-key="popularDish"></div>
+      </div>
+
+      <div class="qa">
+        <div class="q">Любимое блюдо</div>
+        <div class="a answer" data-key="favDish"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title"><span class="num">3</span> Обязанности и смены</div>
+
+      <div class="qa">
+        <div class="q">Твои обязанности</div>
+        <div class="a answer" data-key="tasks"></div>
+      </div>
+
+      <div class="grid-2">
+        <div class="qa">
+          <div class="q">Утренняя смена</div>
+          <div class="a answer" data-key="morning"></div>
+        </div>
+        <div class="qa">
+          <div class="q">Вечерняя смена</div>
+          <div class="a answer" data-key="evening"></div>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q">Карьерный рост</div>
+        <div class="a answer" data-key="growth"></div>
+      </div>
+
+      <div class="grid-2">
+        <div class="qa">
+          <div class="q">Что нравилось?</div>
+          <div class="a answer" data-key="liked"></div>
+        </div>
+        <div class="qa">
+          <div class="q">Что не нравилось?</div>
+          <div class="a answer" data-key="disliked"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title"><span class="num">4</span> Меню / европейская кухня</div>
+
+      <div class="grid-2">
+        <div class="qa">
+          <div class="q">Салат 1 — Caesar Salad</div>
+          <div class="a answer" data-key="caesar"></div>
+        </div>
+        <div class="qa">
+          <div class="q">Салат 2 — Greek Salad</div>
+          <div class="a answer" data-key="greek"></div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="qa">
+          <div class="q">Суп 1</div>
+          <div class="a answer" data-key="soup1"></div>
+        </div>
+        <div class="qa" id="soup2Box">
+          <div class="q">Суп 2</div>
+          <div class="a answer" data-key="soup2"></div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="qa">
+          <div class="q">Основное блюдо 1</div>
+          <div class="a answer" data-key="main1"></div>
+        </div>
+        <div class="qa">
+          <div class="q">Основное блюдо 2</div>
+          <div class="a answer" data-key="main2"></div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="qa">
+          <div class="q">Десерт 1</div>
+          <div class="a answer" data-key="dessert1"></div>
+        </div>
+        <div class="qa">
+          <div class="q">Десерт 2</div>
+          <div class="a answer" data-key="dessert2"></div>
+        </div>
+      </div>
+
+      <div class="warning-box">
+        Важно: кандидат должен уметь не только назвать блюдо, но и простыми словами сказать состав и вкус. Не нужно говорить сложно — лучше понятно.
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title"><span class="num">5</span> Языки</div>
+
+      <div class="grid-2">
+        <div class="qa">
+          <div class="q">Как ты учишь немецкий?</div>
+          <div class="a answer" data-key="learnGerman"></div>
+        </div>
+        <div class="qa">
+          <div class="q">Сколько времени в неделю?</div>
+          <div class="a answer" data-key="hours"></div>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q">Какие методы используешь?</div>
+        <div class="a answer" data-key="methods"></div>
+      </div>
+
+      <div class="qa">
+        <div class="q">С кем говоришь?</div>
+        <div class="a answer" data-key="withWhom"></div>
+      </div>
+
+      <div class="qa">
+        <div class="q">О чём говорите?</div>
+        <div class="a answer" data-key="topics"></div>
+      </div>
+
+      <div class="qa">
+        <div class="q">Почему английский нужен на лайнере?</div>
+        <div class="a answer" data-key="englishSafety"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title"><span class="num">6</span> 30-секундный pitch</div>
+
+      <div class="qa">
+        <div class="q" data-key="openingLabel"></div>
+        <div class="a answer" data-key="opening"></div>
+      </div>
+
+      <div class="pitch answer" data-key="pitch"></div>
+
+      <div class="good-box" data-key="pitchNote"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-title"><span class="num">7</span> Почему лайнер?</div>
+
+      <div class="qa">
+        <div class="q">Почему ты хочешь работать на лайнере?</div>
+        <div class="a answer" data-key="whyShip"></div>
+      </div>
+
+      <div class="qa">
+        <div class="q">Что ты ожидаешь от этой работы?</div>
+        <div class="a answer" data-key="expectation"></div>
+
+        <div class="warning-box">
+          Не говорите:<br><br>
+          ❌ «Я хочу путешествовать и заработать деньги»<br><br>
+          Лучше говорить:<br><br>
+          ✅ «Я хочу получить международный опыт, развиваться в F&B и hospitality, улучшить языки и построить карьеру»
+        </div>
+
+        <div class="good-box">
+          Мариусу важно услышать, что кандидат понимает условия лайнера заранее:
+          долгие смены, жизнь в кабине с другим человеком, дисциплина и работа каждый день.
+          <br><br>
+          Но при этом кандидат всё равно мотивирован ехать ради опыта, международной карьеры и развития в hospitality/F&B.
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q">Будущая цель</div>
+        <div class="a answer" data-key="future"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title"><span class="num">8</span> Финальный чек-лист</div>
+
+      <div class="checklist" id="checklist"></div>
+    </section>
+
+    <footer class="footer">
+      <span>Подготовка к интервью с Мариусом</span>
+      <span>Структура важнее идеальной грамматики</span>
+    </footer>
+  </main>
+
+  <script>
+    const DATA = {
+      en: {
+        lead: 'Это образец для кандидатов уровня A1–A2. Главная цель — не идеальный английский, а короткие, понятные и структурные ответы.',
+        age: 'I am 23 years old.',
+        city: 'I come from Bishkek. Bishkek is the capital of Kyrgyzstan. Around 1 million people live there. The city is in the north of Kyrgyzstan.',
+        university: 'I will finish my studies in June 2026.',
+        workPlace: 'I worked as a waiter at the Sheraton Hotel in Bishkek.',
+        placeDescription: 'Sheraton is a 5-star hotel. I worked in the rooftop restaurant IWA. The restaurant is modern. It has good service, tables and a menu.',
+        cuisine: 'European and international cuisine.',
+        role: 'I was a waiter.',
+        duration: 'I worked there for 1 year and 6 months.',
+        team: 'There were around 6 to 8 waiters in one team.',
+        guests: 'Our guests were hotel guests, tourists, business people and local guests. Many guests came for dinner, meetings or birthdays.',
+        popularDish: 'A popular dish was ribeye steak. Many guests also ordered pasta and salads.',
+        favDish: 'My favourite dish was salmon. It is light, tasty and many guests like it.',
+        tasks: 'My tasks were: greeting guests, taking orders, serving food and drinks, preparing tables and helping the team.',
+        morning: 'In the morning, we prepared the restaurant. We prepared tables and checked cleanliness.',
+        evening: 'In the evening, there were more guests. We served dinner and then closed the restaurant.',
+        growth: 'At the beginning, I worked as a runner. Later, I learned how to communicate with guests and got promoted to a waiter.',
+        liked: 'I liked communication with guests. Sometimes guests are very interesting, and it is easy for me to talk with them.',
+        disliked: 'Sometimes there are difficult guests. It can be complicated to take orders and serve them, but I try to stay calm.',
+        caesar: 'Caesar salad has salad leaves, chicken, parmesan, croutons and Caesar sauce. It is fresh and popular.',
+        greek: 'Greek salad has tomatoes, cucumbers, olives, feta cheese and olive oil. It is fresh and light.',
+        soup1: 'Pumpkin soup. The soup is warm and creamy. It has pumpkin, cream and spices.',
+        soup2: 'Tomato soup. The soup has tomatoes and vegetables. It is warm and light.',
+        main1: 'Ribeye steak with vegetables and potatoes. Many guests order this dish.',
+        main2: 'Pasta carbonara with cheese and sauce. This dish is very popular.',
+        dessert1: 'Vanilla ice cream with chocolate sauce. It is sweet and cold.',
+        dessert2: 'Chocolate ice cream with caramel. Many guests like this dessert.',
+        learnGerman: 'I learn German in a course and also at home.',
+        hours: 'I learn German around 5 hours per week.',
+        methods: 'I use Duolingo, YouTube and podcasts. I also do speaking practice.',
+        withWhom: 'I speak with my teacher and my classmates.',
+        topics: 'We speak about daily life, work, travel and restaurant situations.',
+        englishSafety: 'English is important for safety. On the ship, there are safety trainings. Many colleagues speak English.',
+        openingLabel: 'Первые фразы на английском',
+        opening: 'Good afternoon, Mr. Marius. How are you? May I introduce myself?',
+        pitch: 'My name is Alym. I am 23 years old. I come from Bishkek, the capital of Kyrgyzstan.<br><br>I have 3 years of experience in service and gastronomy. I worked as a waiter at the Sheraton Hotel. I worked in the rooftop restaurant IWA. There I learned good service, teamwork and communication with guests.<br><br>Now I want to work on a cruise ship. I want to get international experience in F&B. I also want to improve my German and English.',
+        pitchNote: 'Главная структура: имя + возраст → город → опыт → обязанности → почему лайнер. Английский может быть простым, но структура должна быть ясной.',
+        whyShip: 'I want to work on a cruise ship because I want to get international experience. I want to learn and become better in F&B.',
+        expectation: 'I know that work on a cruise ship is not easy.<br><br>People work around 9 to 10 hours every day and often without days off.<br><br>I also know that two people usually live in one cabin.<br><br>But I still want to get international experience, grow in F&B and improve my languages.<br><br>In the future, I want to use this experience in Kyrgyzstan and make my contribution to tourism.',
+        future: 'In the future, I want to use this experience in Kyrgyzstan. Tourism is developing here.',
+        checklist: [
+          'Начать интервью без долгой паузы',
+          'Говорить чётко и спокойно',
+          'Улыбаться и быть позитивным',
+          'Отвечать коротко и по структуре',
+          'Описывать ресторан, а не только название',
+          'Знать 2 салата, 2 супа, 2 основных блюда и 2 десерта',
+          'Понимать, почему английский нужен для safety',
+          'Быть уверенным, но не выскочкой'
+        ]
+      },
+
+      de: {
+        lead: 'Это образец для кандидатов уровня A1–A2. Главная цель — не идеальный немецкий, а короткие, понятные и структурные ответы.',
+        age: 'Ich bin 23 Jahre alt.',
+        city: 'Ich komme aus Bischkek. Bischkek ist die Hauptstadt von Kirgisistan. Dort leben ungefähr 1 Million Menschen. Die Stadt liegt im Norden von Kirgisistan.',
+        university: 'Ich beende mein Studium im Juni 2026.',
+        workPlace: 'Ich habe als Kellner im Sheraton Hotel in Bischkek gearbeitet.',
+        placeDescription: 'Das Sheraton ist ein 5-Sterne-Hotel. Ich habe im Rooftop-Restaurant IWA gearbeitet. Das Restaurant ist modern. Es gibt guten Service, Tische und eine Speisekarte.',
+        cuisine: 'Europäische und internationale Küche.',
+        role: 'Ich war Kellner.',
+        duration: 'Ich habe dort 1 Jahr und 6 Monate gearbeitet.',
+        team: 'In einem Team waren ungefähr 6 bis 8 Kellner.',
+        guests: 'Unsere Gäste waren Hotelgäste, Touristen, Geschäftsleute und lokale Gäste. Viele Gäste kamen zum Abendessen, zu Meetings oder zu Geburtstagen.',
+        popularDish: 'Ein beliebtes Gericht war Ribeye Steak. Viele Gäste bestellten auch Pasta und Salate.',
+        favDish: 'Mein Lieblingsgericht war Lachs. Er ist leicht, lecker und viele Gäste mögen ihn.',
+        tasks: 'Meine Aufgaben waren: Gäste begrüßen, Bestellungen aufnehmen, Essen und Getränke servieren, Tische vorbereiten und dem Team helfen.',
+        morning: 'Am Morgen haben wir das Restaurant vorbereitet. Wir haben Tische vorbereitet und die Sauberkeit kontrolliert.',
+        evening: 'Am Abend gab es mehr Gäste. Wir haben Abendessen serviert und danach das Restaurant geschlossen.',
+        growth: 'Am Anfang hatte ich einfache Aufgaben. Später habe ich selbstständig mit Gästen gearbeitet.',
+        liked: 'Mir hat die Kommunikation mit Gästen gefallen. Ich mag Teamarbeit und guten Service.',
+        disliked: 'Manchmal war es stressig. Aber ich habe gelernt, ruhig zu bleiben und schnell zu arbeiten.',
+        caesar: 'Caesar Salad hat Salat, Hähnchen, Parmesan, Croutons und Caesar-Sauce. Er ist frisch und beliebt.',
+        greek: 'Greek Salad hat Tomaten, Gurken, Oliven, Feta-Käse und Olivenöl. Er ist frisch und leicht.',
+        soup1: 'Kürbissuppe. Die Suppe ist warm und cremig. Sie hat Kürbis, Sahne und Gewürze.',
+        soup2: 'Tomatensuppe. Die Suppe hat Tomaten und Gemüse. Sie ist warm und leicht.',
+        main1: 'Ribeye Steak mit Gemüse und Kartoffeln. Viele Gäste bestellen dieses Gericht.',
+        main2: 'Pasta Carbonara mit Käse und Sauce. Das Gericht ist sehr beliebt.',
+        dessert1: 'Vanilleeis mit Schokoladensauce. Es ist süß und kalt.',
+        dessert2: 'Schokoladeneis mit Karamell. Viele Gäste mögen dieses Dessert.',
+        learnGerman: 'Ich lerne Deutsch im Kurs und auch zu Hause.',
+        hours: 'Ich lerne Deutsch ungefähr 5 Stunden pro Woche.',
+        methods: 'Ich benutze Duolingo, YouTube und Podcasts. Ich mache auch Speaking Practice.',
+        withWhom: 'Ich spreche mit meinem Lehrer und mit meinen Klassenkameraden.',
+        topics: 'Wir sprechen über Alltag, Arbeit, Reisen und Restaurant-Situationen.',
+        englishSafety: 'Englisch ist wichtig für Sicherheit. Auf dem Schiff gibt es Sicherheit Trainings. Viele Kollegen sprechen Englisch.',
+        openingLabel: 'Первые фразы на немецком',
+        opening: 'Guten Tag, Herr Marius. Wie geht es Ihnen? Darf ich mich kurz vorstellen?',
+        pitch: 'Mein Name ist Alym. Ich bin 23 Jahre alt. Ich komme aus Bischkek, der Hauptstadt von Kirgisistan.<br><br>Ich habe 3 Jahre Erfahrung im Service und in der Gastronomie. Ich habe als Kellner im Sheraton Hotel gearbeitet. Ich habe im Rooftop-Restaurant IWA gearbeitet. Dort habe ich guten Service, Teamarbeit und Kommunikation mit Gästen gelernt.<br><br>Jetzt möchte ich auf einem Kreuzfahrtschiff arbeiten. Ich möchte internationale Erfahrung im F&B sammeln. Ich möchte auch mein Deutsch und Englisch verbessern.',
+        pitchNote: 'Главная структура: имя + возраст → город → опыт → обязанности → почему лайнер. Немецкий может быть простым, но структура должна быть ясной.',
+        whyShip: 'Ich möchte auf einem Kreuzfahrtschiff arbeiten, weil ich internationale Erfahrung sammeln möchte. Ich möchte im F&B-Bereich lernen und besser werden.',
+        expectation: 'Ich weiß, dass die Arbeit auf dem Kreuzfahrtschiff nicht einfach ist.<br><br>Man arbeitet ungefähr 9 bis 10 Stunden pro Tag und oft ohne freie Tage.<br><br>Ich weiß auch, dass zwei Personen in einer Kabine wohnen.<br><br>Trotzdem möchte ich internationale Erfahrung sammeln, im F&B-Bereich wachsen und meine Sprachen verbessern.<br><br>In der Zukunft möchte ich diese Erfahrung in Kirgisistan nutzen und meinen Beitrag zum Tourismus leisten.',
+        future: 'In der Zukunft möchte ich diese Erfahrung in Kirgisistan nutzen. Der Tourismus entwickelt sich hier.',
+        checklist: [
+          'Начать интервью на немецком без паузы',
+          'Говорить чётко и спокойно',
+          'Улыбаться и быть позитивным',
+          'Отвечать коротко и по структуре',
+          'Описывать ресторан, а не только название',
+          'Знать 2 салата, 2 супа, 2 основных блюда и 2 десерта',
+          'Понимать, почему английский нужен для safety',
+          'Быть уверенным, но не выскочкой'
+        ]
+      }
+    };
+
+    function setLanguage(lang) {
+      const data = DATA[lang];
+
+      document.documentElement.lang = lang;
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+      document.getElementById('btn-de').classList.toggle('active', lang === 'de');
+
+      document.querySelectorAll('[data-key]').forEach(el => {
+        const key = el.dataset.key;
+        if (data[key] !== undefined) {
+          el.innerHTML = data[key];
+        }
+      });
+
+      const checklist = document.getElementById('checklist');
+      checklist.innerHTML = data.checklist.map(item => `<div class="check">${item}</div>`).join('');
+    }
+
+    setLanguage('en');
+  </script>
+</body>
+</html>
