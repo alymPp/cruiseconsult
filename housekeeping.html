@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Housekeeping Interview Prep 🚢</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0F172A; color: #E2E8F0; min-height: 100vh; }
+
+  .header { background: linear-gradient(135deg, #1E3A5F, #0F172A); padding: 24px 16px; border-bottom: 1px solid #1E293B; }
+  .header h1 { font-size: 22px; font-weight: 800; color: #F8FAFC; }
+  .header p { font-size: 13px; color: #94A3B8; margin-top: 4px; }
+
+  .tabs { display: flex; gap: 8px; padding: 16px; overflow-x: auto; background: #0F172A; border-bottom: 1px solid #1E293B; }
+  .tab { padding: 8px 16px; border-radius: 20px; border: none; cursor: pointer; font-size: 13px; font-weight: 600; white-space: nowrap; transition: all 0.2s; }
+  .tab.active { background: #3B82F6; color: #fff; }
+  .tab:not(.active) { background: #1E293B; color: #94A3B8; }
+
+  .section { display: none; padding: 16px; max-width: 760px; margin: 0 auto; }
+  .section.active { display: block; }
+
+  /* Questions */
+  .cat-filter { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+  .cat-btn { padding: 4px 12px; border-radius: 20px; border: 1px solid #334155; background: #1E293B; color: #94A3B8; font-size: 12px; cursor: pointer; }
+  .cat-btn.active { border-color: #3B82F6; background: #1D4ED8; color: #fff; }
+
+  .q-card { background: #1E293B; border: 1px solid #334155; border-radius: 12px; padding: 16px; margin-bottom: 12px; cursor: pointer; transition: border-color 0.2s; }
+  .q-card:hover { border-color: #3B82F6; }
+  .q-card.open { border-color: #3B82F6; background: #1E3A5F; }
+  .q-badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 10px; border-radius: 20px; margin-bottom: 8px; }
+  .q-en { font-size: 14px; font-weight: 700; color: #F1F5F9; margin-bottom: 4px; }
+  .q-ru { font-size: 13px; color: #94A3B8; }
+  .q-tip { margin-top: 12px; padding: 12px; background: #1A1600; border: 1px solid #F59E0B44; border-radius: 8px; font-size: 13px; color: #FCD34D; line-height: 1.6; display: none; }
+  .q-card.open .q-tip { display: block; }
+  .tip-label { font-weight: 700; margin-bottom: 4px; }
+
+  /* Guide sections */
+  .guide-block { background: #1E293B; border: 1px solid #334155; border-radius: 12px; padding: 18px; margin-bottom: 16px; }
+  .guide-block h3 { font-size: 15px; font-weight: 700; color: #F8FAFC; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .guide-block p { font-size: 13px; color: #94A3B8; line-height: 1.7; margin-bottom: 8px; }
+  .step-list { list-style: none; counter-reset: steps; }
+  .step-list li { counter-increment: steps; padding: 8px 0 8px 36px; border-bottom: 1px solid #334155; font-size: 13px; color: #CBD5E1; line-height: 1.5; position: relative; }
+  .step-list li:last-child { border-bottom: none; }
+  .step-list li::before { content: counter(steps); position: absolute; left: 0; top: 8px; width: 24px; height: 24px; background: #3B82F6; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #fff; }
+
+  .cloth-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .cloth-card { border-radius: 10px; padding: 12px; }
+  .cloth-card .dot { width: 28px; height: 28px; border-radius: 50%; margin-bottom: 8px; }
+  .cloth-card h4 { font-size: 13px; font-weight: 700; color: #F1F5F9; margin-bottom: 4px; }
+  .cloth-card p { font-size: 12px; color: #94A3B8; }
+
+  .chemical-row { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid #334155; align-items: flex-start; }
+  .chemical-row:last-child { border-bottom: none; }
+  .chem-icon { font-size: 20px; width: 36px; text-align: center; flex-shrink: 0; }
+  .chem-name { font-size: 13px; font-weight: 700; color: #F1F5F9; }
+  .chem-use { font-size: 12px; color: #94A3B8; margin-top: 2px; }
+
+  /* Videos */
+  .video-card { background: #1E293B; border: 1px solid #334155; border-radius: 12px; overflow: hidden; margin-bottom: 14px; }
+  .video-thumb { width: 100%; aspect-ratio: 16/9; border: none; }
+  .video-info { padding: 14px; }
+  .video-info h4 { font-size: 14px; font-weight: 700; color: #F1F5F9; margin-bottom: 4px; }
+  .video-info p { font-size: 12px; color: #94A3B8; line-height: 1.5; }
+  .video-link { display: inline-block; margin-top: 10px; padding: 7px 16px; background: #EF4444; border-radius: 8px; color: #fff; text-decoration: none; font-size: 12px; font-weight: 700; }
+
+  .warn { background: #1A0A0A; border: 1px solid #EF444444; border-radius: 10px; padding: 12px; font-size: 13px; color: #FCA5A5; line-height: 1.6; margin-bottom: 12px; }
+
+  @media(max-width: 480px) { .cloth-grid { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🚢 Housekeeping Interview Prep</h1>
+  <p>Cruize Consult · 18 вопросов · EN + RU · Видео + Гиды</p>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="showTab('questions')">❓ Вопросы</button>
+  <button class="tab" onclick="showTab('steps')">📋 Шаги уборки</button>
+  <button class="tab" onclick="showTab('cloths')">🎨 Цвет тряпок</button>
+  <button class="tab" onclick="showTab('chemicals')">🧴 Химия</button>
+  <button class="tab" onclick="showTab('videos')">▶️ Видео</button>
+</div>
+
+<!-- QUESTIONS TAB -->
+<div id="tab-questions" class="section active">
+  <div class="cat-filter">
+    <button class="cat-btn active" onclick="filterCat(this,'All')">All</button>
+    <button class="cat-btn" onclick="filterCat(this,'Experience')">Experience</button>
+    <button class="cat-btn" onclick="filterCat(this,'Cleaning Steps')">Cleaning Steps</button>
+    <button class="cat-btn" onclick="filterCat(this,'Cloths & Chemicals')">Cloths & Chemicals</button>
+    <button class="cat-btn" onclick="filterCat(this,'Guest Privacy')">Guest Privacy</button>
+    <button class="cat-btn" onclick="filterCat(this,'Linen & Towels')">Linen & Towels</button>
+    <button class="cat-btn" onclick="filterCat(this,'Biohazard')">Biohazard</button>
+    <button class="cat-btn" onclick="filterCat(this,'Situation')">Situation</button>
+    <button class="cat-btn" onclick="filterCat(this,'Personal')">Personal</button>
+  </div>
+
+  <div id="q-list"></div>
+</div>
+
+<!-- STEPS TAB -->
+<div id="tab-steps" class="section">
+  <div class="guide-block">
+    <h3>🚪 When you enter the cabin</h3>
+    <p>Always follow this order. Interviewers ask about this directly.</p>
+    <ol class="step-list">
+      <li><strong>Knock 3 times</strong> and say <em>"Housekeeping!"</em> — wait 10 seconds, knock again</li>
+      <li><strong>Open the door slowly</strong> — announce yourself again if guest is inside</li>
+      <li><strong>Open windows / balcony door</strong> to ventilate the cabin</li>
+      <li><strong>Strip the bed</strong> — remove all linen, check for lost items before throwing in laundry bag</li>
+      <li><strong>Apply bathroom chemicals</strong> (toilet bowl cleaner, descaler) — let them soak while you dust</li>
+      <li><strong>Dust top to bottom</strong> — shelves, TV, nightstands, pictures, then lower surfaces</li>
+      <li><strong>Clean the bathroom</strong> — toilet → sink → shower/tub → mirrors → floor</li>
+      <li><strong>Make the bed</strong> — fresh linen, hospital corners, decorative fold</li>
+      <li><strong>Restock amenities</strong> — towels, toiletries, coffee, stationery</li>
+      <li><strong>Vacuum the floor</strong> — corners first, then main area, under furniture</li>
+      <li><strong>Final walkthrough</strong> — check everything from the guest's perspective at the door</li>
+    </ol>
+  </div>
+  <div class="guide-block">
+    <h3>🚿 Bathroom cleaning order</h3>
+    <ol class="step-list">
+      <li>Apply toilet bowl cleaner inside, let it soak</li>
+      <li>Clean toilet exterior — tank, handle, base (RED cloth)</li>
+      <li>Scrub inside bowl with brush, wipe seat inside and out</li>
+      <li>Clean sink, faucet, counter (YELLOW cloth)</li>
+      <li>Scrub shower/bathtub — apply descaler, let sit, scrub, rinse</li>
+      <li>Wipe all surfaces dry to prevent water marks</li>
+      <li>Clean mirrors with glass cleaner (BLUE cloth)</li>
+      <li>Mop/wipe floor last</li>
+      <li>Replace towels, restock toiletries, close shower curtain neatly</li>
+    </ol>
+  </div>
+</div>
+
+<!-- CLOTHS TAB -->
+<div id="tab-cloths" class="section">
+  <div class="guide-block">
+    <h3>🎨 Color-Coded Cloth System</h3>
+    <p style="margin-bottom:16px">This is a <strong style="color:#F1F5F9">critical interview topic</strong>. Memorise all 4 colours. The rule: <strong style="color:#EF4444">NEVER mix colours</strong> — it causes cross-contamination.</p>
+    <div class="cloth-grid">
+      <div class="cloth-card" style="background:#2A0A0A; border:1px solid #EF444444">
+        <div class="dot" style="background:#EF4444"></div>
+        <h4>🔴 RED</h4>
+        <p>Toilet bowl, toilet seat, bathroom floor around toilet</p>
+      </div>
+      <div class="cloth-card" style="background:#2A1F00; border:1px solid #F59E0B44">
+        <div class="dot" style="background:#F59E0B"></div>
+        <h4>🟡 YELLOW</h4>
+        <p>Sink, bathroom surfaces (NOT toilet), shower, bathtub</p>
+      </div>
+      <div class="cloth-card" style="background:#001A2A; border:1px solid #3B82F644">
+        <div class="dot" style="background:#3B82F6"></div>
+        <h4>🔵 BLUE</h4>
+        <p>Mirrors, general surfaces, dusting, TV, nightstands</p>
+      </div>
+      <div class="cloth-card" style="background:#001A0A; border:1px solid #10B98144">
+        <div class="dot" style="background:#10B981"></div>
+        <h4>🟢 GREEN</h4>
+        <p>Kitchen / food prep areas only</p>
+      </div>
+    </div>
+    <div class="warn" style="margin-top:16px">
+      ⚠️ <strong>If interviewer asks "why color coding?"</strong> — answer: <em>"To prevent cross-contamination. Using a toilet cloth on a sink spreads bacteria and is a serious health risk, especially on a cruise ship with thousands of guests."</em>
+    </div>
+  </div>
+</div>
+
+<!-- CHEMICALS TAB -->
+<div id="tab-chemicals" class="section">
+  <div class="guide-block">
+    <h3>🧴 Cleaning Chemicals You Must Know</h3>
+    <p style="margin-bottom:14px">Know the name, purpose, and always mention: <em style="color:#FCD34D">"I always read the label and follow dilution instructions."</em></p>
+    <div class="chemical-row">
+      <div class="chem-icon">🧪</div>
+      <div><div class="chem-name">Descaler / Limescale Remover</div><div class="chem-use">Removes limescale from taps, showerheads, bathtub. Apply, let soak 5–10 min, scrub, rinse.</div></div>
+    </div>
+    <div class="chemical-row">
+      <div class="chem-icon">🦠</div>
+      <div><div class="chem-name">Disinfectant</div><div class="chem-use">Kills bacteria & viruses. Used on toilet, sink, high-touch surfaces (handles, switches). Critical on cruise ships.</div></div>
+    </div>
+    <div class="chemical-row">
+      <div class="chem-icon">🪟</div>
+      <div><div class="chem-name">Glass Cleaner</div><div class="chem-use">Mirrors, windows, glass surfaces. Spray and wipe with blue cloth in circular/Z motion. No streaks.</div></div>
+    </div>
+    <div class="chemical-row">
+      <div class="chem-icon">🧹</div>
+      <div><div class="chem-name">All-Purpose Cleaner</div><div class="chem-use">General surfaces — desk, nightstand, TV stand, shelves. Safe for most hard surfaces.</div></div>
+    </div>
+    <div class="chemical-row">
+      <div class="chem-icon">🚽</div>
+      <div><div class="chem-name">Toilet Bowl Cleaner</div><div class="chem-use">Apply under rim, let soak, scrub with brush. Strong disinfectant. RED cloth for outside of toilet only.</div></div>
+    </div>
+    <div class="chemical-row">
+      <div class="chem-icon">🛡️</div>
+      <div><div class="chem-name">Air Freshener</div><div class="chem-use">Used last, after cleaning is complete. Light spray — not too much. Some guests have allergies.</div></div>
+    </div>
+    <div class="warn" style="margin-top:12px">
+      ⚠️ <strong>NEVER mix chemicals</strong> — e.g. bleach + ammonia = toxic gas. Always wear gloves. Store chemicals in original containers with labels.
+    </div>
+  </div>
+</div>
+
+<!-- VIDEOS TAB -->
+<div id="tab-videos" class="section">
+  <p style="font-size:13px; color:#94A3B8; margin-bottom:16px">Посмотри эти видео перед интервью — они объясняют именно то, о чём спросит интервьюер.</p>
+
+  <div class="video-card">
+    <iframe class="video-thumb" src="https://www.youtube.com/embed/AB5hjtnVDY8" title="Cruise Ship Housekeeping Interview Tips" frameborder="0" allowfullscreen></iframe>
+    <div class="video-info">
+      <h4>🚢 Cruise Ship Housekeeping Interview — Tips & Sample Answers</h4>
+      <p>Реальные вопросы с интервью на круизный лайнер, примеры правильных ответов. Смотреть обязательно.</p>
+      <a class="video-link" href="https://www.youtube.com/watch?v=AB5hjtnVDY8" target="_blank">▶ Открыть на YouTube</a>
+    </div>
+  </div>
+
+  <div class="video-card">
+    <iframe class="video-thumb" src="https://www.youtube.com/embed/mrKc6n6J1mM" title="Top 10 Housekeeping Questions Cruise Ship" frameborder="0" allowfullscreen></iframe>
+    <div class="video-info">
+      <h4>🎤 TOP 10 Housekeeping Interview Questions (Cruise Ship)</h4>
+      <p>Топ-10 вопросов которые задают на интервью в housekeeping на круизных судах.</p>
+      <a class="video-link" href="https://www.youtube.com/watch?v=mrKc6n6J1mM" target="_blank">▶ Открыть на YouTube</a>
+    </div>
+  </div>
+
+  <div class="video-card">
+    <iframe class="video-thumb" src="https://www.youtube.com/embed/vGHjCRPiPo8" title="Hotel Room Cleaning Steps" frameborder="0" allowfullscreen></iframe>
+    <div class="video-info">
+      <h4>🏨 Hotel Room Cleaning — Step by Step (Professional)</h4>
+      <p>Профессиональная уборка номера от начала до конца. Изучи порядок шагов — именно об этом спрашивают.</p>
+      <a class="video-link" href="https://www.youtube.com/watch?v=vGHjCRPiPo8" target="_blank">▶ Открыть на YouTube</a>
+    </div>
+  </div>
+
+  <div class="video-card">
+    <iframe class="video-thumb" src="https://www.youtube.com/embed/gQzMOLLMDkE" title="Color Coded Cloths Explained" frameborder="0" allowfullscreen></iframe>
+    <div class="video-info">
+      <h4>🎨 Color-Coded Cleaning Cloths Explained</h4>
+      <p>Почему используются разные цвета тряпок и как это работает. Один из самых частых вопросов на интервью.</p>
+      <a class="video-link" href="https://www.youtube.com/watch?v=gQzMOLLMDkE" target="_blank">▶ Открыть на YouTube</a>
+    </div>
+  </div>
+</div>
+
+<script>
+const questions = [
+  { cat: "Experience", en: "Tell me about your housekeeping experience. Where have you worked before?", ru: "Расскажите о своём опыте в уборке. Где работали раньше?", tip: "Mention specific places: hotel, hospital, private home. Use numbers — 'I cleaned 15 rooms per shift'.", color: "#3B82F6" },
+  { cat: "Experience", en: "Walk me through a typical day as a housekeeper.", ru: "Опишите ваш типичный рабочий день горничной.", tip: "Knock > announce > enter > ventilate > strip bed > dust > bathroom > vacuum > restock > final check.", color: "#3B82F6" },
+  { cat: "Cleaning Steps", en: "What are your steps when you enter a guest room? What do you do first?", ru: "С чего начинаете уборку номера? Опишите шаги.", tip: "1) Knock & announce  2) Open windows  3) Strip bed  4) Apply bathroom chemicals to soak  5) Dust top-to-bottom  6) Clean bathroom  7) Make bed  8) Vacuum  9) Final walkthrough.", color: "#10B981" },
+  { cat: "Cloths & Chemicals", en: "What color-coded cloths do you use and what is each color for?", ru: "Какие цвета тряпок вы используете? Для чего каждый цвет?", tip: "🔴 Red = toilet. 🟡 Yellow = sink/bathroom surfaces. 🔵 Blue = mirrors/general. 🟢 Green = kitchen. NEVER mix — cross-contamination risk!", color: "#F59E0B" },
+  { cat: "Cloths & Chemicals", en: "What cleaning chemicals do you use? What is each one for?", ru: "Какие химические средства используете? Назовите назначение каждого.", tip: "Descaler for limescale. Disinfectant for bathroom. Glass cleaner for mirrors. All-purpose for surfaces. Always say: 'I read the label and follow dilution ratios.'", color: "#F59E0B" },
+  { cat: "Guest Privacy", en: "You enter a room and see personal belongings on the bed. What do you do?", ru: "Вы зашли в номер и видите личные вещи гостя на кровати. Что делаете?", tip: "NEVER move guest belongings. Work around them. If item blocks cleaning area — note in your report, do NOT touch.", color: "#EC4899" },
+  { cat: "Guest Privacy", en: "A guest has left money or valuables on the table. What do you do?", ru: "Гость оставил деньги или ценности на столе. Ваши действия?", tip: "Do NOT touch. Clean around them. Report to supervisor if concerned. This protects you from theft accusations.", color: "#EC4899" },
+  { cat: "Guest Privacy", en: "A guest has left food on the table. Do you remove it?", ru: "В номере на столе стоит еда гостя. Убираете?", tip: "Do NOT remove food unless clearly in the trash. Only remove items from trash bins.", color: "#EC4899" },
+  { cat: "Linen & Towels", en: "When do you change guest towels, and when do you leave them?", ru: "Когда меняете полотенца, а когда оставляете?", tip: "Change if on floor or in tub. If hung up neatly = guest wants to reuse. Always follow ship policy.", color: "#06B6D4" },
+  { cat: "Linen & Towels", en: "When do you change bed linen — pillowcases and sheets?", ru: "Когда меняется постельное бельё — наволочки, простыни?", tip: "After checkout: always change everything. During stay: every 2-3 days or per guest request. On ship: follow company policy.", color: "#06B6D4" },
+  { cat: "Biohazard", en: "You find bed linen stained with blood. What is your procedure?", ru: "Вы нашли постельное бельё с пятнами крови. Что делаете?", tip: "CRITICAL: Put on gloves IMMEDIATELY. Do NOT touch bare hands. Place in biohazard/special bag (separate from regular laundry). Report to supervisor. Follow ship infection control protocol.", color: "#DC2626" },
+  { cat: "Cleaning Steps", en: "How do you clean a toilet? Walk me through your steps.", ru: "Как вы чистите туалет? Опишите шаги.", tip: "1) Apply disinfectant inside bowl (soak)  2) Clean exterior — tank, handle, base  3) Scrub bowl  4) Wipe seat inside/out  5) Final wipe. RED cloth ONLY.", color: "#10B981" },
+  { cat: "Cleaning Steps", en: "How do you clean a bathtub or shower?", ru: "Как вы чистите ванну или душ?", tip: "Apply descaler/cleaner, let soak. Scrub walls top to bottom. Clean fixtures. Rinse thoroughly. Dry to prevent water marks. Yellow cloth.", color: "#10B981" },
+  { cat: "Situation", en: "A guest asks you to come back later. What do you do?", ru: "Гость просит зайти позже. Ваши действия?", tip: "Smile, apologize for interruption, ask what time is convenient. Note on your schedule. Inform supervisor if cleaning can't be completed that day.", color: "#6366F1" },
+  { cat: "Situation", en: "You find a forgotten item after a guest checks out. What do you do?", ru: "Вы нашли в номере забытый предмет после выезда гостя. Что делаете?", tip: "Do NOT keep it. Take to lost & found / supervisor immediately. Log it: room number, date, item description. Very important on cruise ships.", color: "#6366F1" },
+  { cat: "Situation", en: "You notice a dangerous situation in a room — broken glass or smell of gas. What do you do?", ru: "Вы видите опасную ситуацию — разбитое стекло, запах газа. Что делаете?", tip: "Do NOT fix yourself. Leave immediately. Report to supervisor. Follow emergency procedures. Guest safety always first.", color: "#6366F1" },
+  { cat: "Experience", en: "How do you handle it when you have more rooms to clean than usual?", ru: "Как справляетесь, когда нужно убрать больше номеров, чем обычно?", tip: "Prioritize checkouts first. Work efficiently without rushing. Ask supervisor for help. Communicate honestly about what can be completed.", color: "#3B82F6" },
+  { cat: "Personal", en: "Why do you want to work as a housekeeper on a cruise ship?", ru: "Почему вы хотите работать горничной на круизном лайнере?", tip: "Be genuine. Mention: love for hospitality, opportunity to travel, professional growth. Avoid 'just for money' — mention guest satisfaction.", color: "#A78BFA" },
+];
+
+let currentCat = "All";
+
+function renderQuestions() {
+  const list = document.getElementById('q-list');
+  const filtered = currentCat === "All" ? questions : questions.filter(q => q.cat === currentCat);
+  list.innerHTML = filtered.map((q, i) => `
+    <div class="q-card" onclick="toggleQ(this)" data-cat="${q.cat}">
+      <span class="q-badge" style="background:${q.color}22;color:${q.color}">${q.cat}</span>
+      <div class="q-en">${q.en}</div>
+      <div class="q-ru">${q.ru}</div>
+      <div class="q-tip"><div class="tip-label">💡 Tip:</div>${q.tip}</div>
+    </div>
+  `).join('');
+}
+
+function toggleQ(el) {
+  const wasOpen = el.classList.contains('open');
+  document.querySelectorAll('.q-card.open').forEach(c => c.classList.remove('open'));
+  if (!wasOpen) el.classList.add('open');
+}
+
+function filterCat(btn, cat) {
+  currentCat = cat;
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderQuestions();
+}
+
+function showTab(name) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.target.classList.add('active');
+}
+
+renderQuestions();
+</script>
+</body>
+</html>
